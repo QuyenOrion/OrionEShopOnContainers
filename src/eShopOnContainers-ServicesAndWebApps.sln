@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{66E3CF89-CF59-493A-993D-1A897E47D011}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{97B88516-ECDE-45B7-B1AC-26E61F0B8674}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{6676AD69-A816-4C0C-8326-42B41C4EDFA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E107F46A-03B5-4F04-B0A2-8ACCDCE0F7B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Apps", "Web Apps", "{7E0F2C2F-FAB5-40BD-A5EB-7620FA7748F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{BB699567-D708-43F5-A38B-7C835F4EB91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "Services\Ordering\Ordering.API\Ordering.API\Ordering.API.csproj", "{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97B88516-ECDE-45B7-B1AC-26E61F0B8674} = {66E3CF89-CF59-493A-993D-1A897E47D011}
+		{6676AD69-A816-4C0C-8326-42B41C4EDFA3} = {66E3CF89-CF59-493A-993D-1A897E47D011}
+		{E107F46A-03B5-4F04-B0A2-8ACCDCE0F7B4} = {66E3CF89-CF59-493A-993D-1A897E47D011}
+		{7E0F2C2F-FAB5-40BD-A5EB-7620FA7748F8} = {66E3CF89-CF59-493A-993D-1A897E47D011}
+		{BB699567-D708-43F5-A38B-7C835F4EB91E} = {E107F46A-03B5-4F04-B0A2-8ACCDCE0F7B4}
+		{BB7B0F8B-624A-47FB-ABFA-6EEB67E91F6C} = {BB699567-D708-43F5-A38B-7C835F4EB91E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75C20008-DC2E-47E3-9917-58C23D52A2C9}
+	EndGlobalSection
+EndGlobal

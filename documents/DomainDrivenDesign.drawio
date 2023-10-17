@@ -54,8 +54,8 @@
                 </mxCell>
                 <mxCell id="vX0AaTOOjbRXFZJsMf_o-29" value="Checkout" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;" parent="vX0AaTOOjbRXFZJsMf_o-28" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="50" y="202" as="sourcePoint"/>
-                        <mxPoint x="219.5" y="202" as="targetPoint"/>
+                        <mxPoint x="50" y="185" as="sourcePoint"/>
+                        <mxPoint x="219.5" y="185" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="30VRA0aZ1PyHkpjyzQQC-28" value="Add/Remove/Change quantity" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;" parent="vX0AaTOOjbRXFZJsMf_o-28" target="30VRA0aZ1PyHkpjyzQQC-30" edge="1">
@@ -75,7 +75,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="vX0AaTOOjbRXFZJsMf_o-30" value="Basket Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;lifelineDashed=0;" parent="1" vertex="1">
-                    <mxGeometry x="400" y="720" width="100" height="300" as="geometry"/>
+                    <mxGeometry x="400" y="720" width="100" height="290" as="geometry"/>
                 </mxCell>
                 <mxCell id="30VRA0aZ1PyHkpjyzQQC-31" value="&amp;lt;&amp;lt;&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;" parent="vX0AaTOOjbRXFZJsMf_o-30" source="30VRA0aZ1PyHkpjyzQQC-30" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
@@ -89,12 +89,15 @@
                         <mxPoint x="189.5" y="430" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="2EtXU9p0EtEa4dIMnpt1-34" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="vX0AaTOOjbRXFZJsMf_o-30">
+                    <mxGeometry x="45" y="170" width="10" height="90" as="geometry"/>
+                </mxCell>
                 <mxCell id="vX0AaTOOjbRXFZJsMf_o-31" value="Ordering Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;lifelineDashed=0;" parent="1" vertex="1">
                     <mxGeometry x="540" y="720" width="100" height="1340" as="geometry"/>
                 </mxCell>
                 <mxCell id="vX0AaTOOjbRXFZJsMf_o-32" value="Create Order" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;" parent="vX0AaTOOjbRXFZJsMf_o-31" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="-90.5" y="243.5" as="sourcePoint"/>
+                        <mxPoint x="-80" y="244" as="sourcePoint"/>
                         <mxPoint x="40" y="244" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
@@ -148,8 +151,8 @@
                 </mxCell>
                 <mxCell id="29" value="&amp;lt;&amp;lt;&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;" parent="1" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="280" y="939" as="sourcePoint"/>
-                        <mxPoint x="450" y="939" as="targetPoint"/>
+                        <mxPoint x="280" y="912" as="sourcePoint"/>
+                        <mxPoint x="440" y="912" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="0RYQkDIKPmP7uPoeJiNk-29" value="Catalog Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;lifelineDashed=0;" parent="1" vertex="1">
@@ -173,13 +176,13 @@
                 <mxCell id="vX0AaTOOjbRXFZJsMf_o-33" value="Via EventBus" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="466" y="960" width="100" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="0RYQkDIKPmP7uPoeJiNk-33" value="Create new Order" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" parent="1" source="vX0AaTOOjbRXFZJsMf_o-28" edge="1">
+                <mxCell id="0RYQkDIKPmP7uPoeJiNk-33" value="Create new Order" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="110.5" y="810" as="sourcePoint"/>
-                        <mxPoint x="110" y="891" as="targetPoint"/>
+                        <mxPoint x="109.5" y="810" as="sourcePoint"/>
+                        <mxPoint x="110" y="881" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="190" y="820"/>
-                            <mxPoint x="190.5" y="891"/>
+                            <mxPoint x="190" y="810"/>
+                            <mxPoint x="190.5" y="881"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -348,10 +351,10 @@
                 <mxCell id="lNKn7yxebGxFFtp7Wl8g-35" value="Status change to Submitted and VerifyOrAdd Payment method" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" edge="1" parent="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="579.5" y="1000" as="sourcePoint"/>
-                        <mxPoint x="579.5" y="1060" as="targetPoint"/>
+                        <mxPoint x="580" y="1050" as="targetPoint"/>
                         <Array as="points">
                             <mxPoint x="480.25" y="1000"/>
-                            <mxPoint x="480" y="1060"/>
+                            <mxPoint x="480" y="1050"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -363,6 +366,16 @@
                 </mxCell>
                 <mxCell id="yKJeFpetjFTcQDDwQFMX-35" value="Via SignalR" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="295.5" y="1078" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="2EtXU9p0EtEa4dIMnpt1-35" value="Remove Basket" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="439.5" y="920" as="sourcePoint"/>
+                        <mxPoint x="440" y="970" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="340.25" y="920"/>
+                            <mxPoint x="340" y="970"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

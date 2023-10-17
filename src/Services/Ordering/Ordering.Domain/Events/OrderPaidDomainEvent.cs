@@ -1,19 +1,12 @@
-﻿using MediatR;
-using OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-
-namespace OrionEShopOnContainer.Services.Ordering.Domain.Events
+﻿namespace OrionEShopOnContainer.Services.Ordering.Domain.Events;
+public class OrderPaidDomainEvent : INotification
 {
-    public class OrderPaidDomainEvent
-    : INotification
-    {
-        public int OrderId { get; }
-        public IEnumerable<OrderItem> OrderItems { get; }
+    public int OrderId { get; }
+    public IEnumerable<OrderItem> OrderItems { get; }
 
-        public OrderPaidDomainEvent(int orderId,
-            IEnumerable<OrderItem> orderItems)
-        {
-            OrderId = orderId;
-            OrderItems = orderItems;
-        }
+    public OrderPaidDomainEvent(int orderId, IEnumerable<OrderItem> orderItems)
+    {
+        OrderId = orderId; 
+        OrderItems = orderItems;
     }
 }

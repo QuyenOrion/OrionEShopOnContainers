@@ -348,7 +348,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="lNKn7yxebGxFFtp7Wl8g-35" value="Status change to Submitted and VerifyOrAdd Payment method" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" edge="1" parent="1">
+                <mxCell id="lNKn7yxebGxFFtp7Wl8g-35" value="Set Status to Submitted and VerifyOrAdd Payment method" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=bottom;dashed=1;endFill=0;labelBackgroundColor=none;" edge="1" parent="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="579.5" y="1000" as="sourcePoint"/>
                         <mxPoint x="580" y="1050" as="targetPoint"/>

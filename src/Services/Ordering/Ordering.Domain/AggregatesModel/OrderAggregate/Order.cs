@@ -28,7 +28,8 @@ public class Order : Entity
         _orderItems = new List<OrderItem>();
     }
 
-    public Order(Address address, int? buyerId, int? paymentMethodId)
+    public Order(string userId, string userName, Address address, int cardTypeId, string cardNumber, string cardSecurityNumber,
+            string cardHolderName, DateTime cardExpiration, int? buyerId = null, int? paymentMethodId = null)
       : this()
     {
         _orderDate = DateTime.UtcNow;
@@ -36,6 +37,18 @@ public class Order : Entity
         _buyerId = buyerId;
         _paymentMethodId = paymentMethodId;
         _orderStatusId = OrderStatus.Submitted.Id;
+
+        AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber,
+                                   cardSecurityNumber, cardHolderName, cardExpiration);
+    }
+
+    private void AddOrderStartedDomainEvent(string userId, string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration)
+    {
+        var orderStartedDomainEvent = new OrderStartedDomainEvent(this, userId, userName, cardTypeId,
+                                                                    cardNumber, cardSecurityNumber,
+                                                                    cardHolderName, cardExpiration);
+
+        this.AddDomainEvent(orderStartedDomainEvent);
     }
 
     public void AddOrderItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units)
@@ -96,7 +109,7 @@ public class Order : Entity
         if (_orderStatusId == OrderStatus.Submitted.Id)
         {
             _orderStatusId = OrderStatus.Paid.Id;
-            AddDomainEvent(new OrderPaidDomainEvent(Id, _orderItems));
+            AddDomainEvent(new OrderStatusChangedToPaidDomainEvent(Id, _orderItems));
             return;
         }
 
@@ -108,11 +121,22 @@ public class Order : Entity
         if (_orderStatusId == OrderStatus.Submitted.Id)
         {
             _orderStatusId = OrderStatus.AwaitingValidation.Id;
-            AddDomainEvent(new OrderAwaitingValidationDomainEvent(Id, _orderItems));
+            AddDomainEvent(new OrderStatusChangedToAwaitingValidationDomainEvent(Id, _orderItems));
             return;
         }
 
         StatusChangeException(OrderStatus.AwaitingValidation);
+    }
+
+    public void SetStockConfirmedStatus()
+    {
+        if (_orderStatusId == OrderStatus.AwaitingValidation.Id)
+        {
+            AddDomainEvent(new OrderStatusChangedToStockConfirmedDomainEvent(Id));
+
+            _orderStatusId = OrderStatus.StockConfirmed.Id;
+            _description = "All the items were confirmed with available stock.";
+        }
     }
 
     private void StatusChangeException(OrderStatus orderStatusToChange)

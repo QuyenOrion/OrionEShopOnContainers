@@ -1,10 +1,10 @@
 namespace OrionEShopOnContainer.Services.Ordering.Domain.Events;
-public class OrderAwaitingValidationDomainEvent : INotification
+public class OrderStatusChangedToAwaitingValidationDomainEvent : INotification
 {
     public int OrderId { get; }
     public IEnumerable<OrderItem> OrderItems { get; }
 
-    public OrderAwaitingValidationDomainEvent(int orderId,
+    public OrderStatusChangedToAwaitingValidationDomainEvent(int orderId,
         IEnumerable<OrderItem> orderItems)
     {
         OrderId = orderId;

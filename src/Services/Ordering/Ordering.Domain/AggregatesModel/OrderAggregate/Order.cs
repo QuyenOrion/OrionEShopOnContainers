@@ -4,7 +4,7 @@ using OrionEShopOnContainer.Services.Ordering.Domain.Events;
 using OrionEShopOnContainer.Services.Ordering.Domain.SeedWork;
 
 namespace OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-public class Order : Entity
+public class Order : Entity, IAggregateRoot
 {
     private readonly DateTime _orderDate;
 

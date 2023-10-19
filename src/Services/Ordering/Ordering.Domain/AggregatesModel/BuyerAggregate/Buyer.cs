@@ -2,7 +2,7 @@ using Microsoft.VisualBasic;
 
 namespace OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
 public class Buyer
-    : Entity
+    : Entity, IAggregateRoot
 {
     public string IdentityGuid { get; private set; }
 

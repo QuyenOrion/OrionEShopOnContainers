@@ -26,16 +26,16 @@ public class UserCheckoutAcceptedIntegrationEventHandler
                                                 @event.CardNumber, @event.CardHolderName, @event.CardExpiration, 
                                                 @event.CardSecurityNumber, @event.CardTypeId);
 
-                    var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, @event.RequestId);
+                    //var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, @event.RequestId);
 
-                    _logger.LogInformation(
-                        "Sending command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
-                        requestCreateOrder.GetGenericTypeName(),
-                        nameof(requestCreateOrder.Id),
-                        requestCreateOrder.Id,
-                        requestCreateOrder);
+                    //_logger.LogInformation(
+                    //    "Sending command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
+                    //    requestCreateOrder.GetGenericTypeName(),
+                    //    nameof(requestCreateOrder.Id),
+                    //    requestCreateOrder.Id,
+                    //    requestCreateOrder);
 
-                    var result = await _mediator.Send(requestCreateOrder);
+                    var result = await _mediator.Send(createOrderCommand);
 
                     if (result)
                         _logger.LogInformation("CreateOrderCommand suceeded - RequestId: {RequestId}", @event.RequestId);

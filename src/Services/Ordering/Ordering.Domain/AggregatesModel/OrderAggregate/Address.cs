@@ -16,3 +16,7 @@ public class Address
     ZipCode = zipCode;
   }
 }
+public interface IOrderRepository
+{
+
+}

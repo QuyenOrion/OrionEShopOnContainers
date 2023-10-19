@@ -1,7 +1,7 @@
 using System;
 
 namespace OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-public class OrderItem
+public class OrderItem : Entity
 {
     private int _id;
     private string _productName;

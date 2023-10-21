@@ -130,11 +130,10 @@ namespace Ordering.API.Infrastructure.Migrations
                     Address_State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderStatusId1 = table.Column<int>(type: "int", nullable: false),
+                    OrderStatusId = table.Column<int>(type: "int", nullable: false),
                     BuyerId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderStatusId = table.Column<int>(type: "int", nullable: false),
                     PaymentMethodId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -149,13 +148,6 @@ namespace Ordering.API.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_orders_orderstatus_OrderStatusId",
                         column: x => x.OrderStatusId,
-                        principalSchema: "ordering",
-                        principalTable: "orderstatus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_orders_orderstatus_OrderStatusId1",
-                        column: x => x.OrderStatusId1,
                         principalSchema: "ordering",
                         principalTable: "orderstatus",
                         principalColumn: "Id",
@@ -219,12 +211,6 @@ namespace Ordering.API.Infrastructure.Migrations
                 schema: "ordering",
                 table: "orders",
                 column: "OrderStatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orders_OrderStatusId1",
-                schema: "ordering",
-                table: "orders",
-                column: "OrderStatusId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_orders_PaymentMethodId",

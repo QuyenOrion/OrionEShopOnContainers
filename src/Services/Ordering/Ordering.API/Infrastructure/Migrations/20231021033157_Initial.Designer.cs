@@ -12,7 +12,7 @@ using OrionEShopOnContainer.Services.Ordering.Infrastructure;
 namespace Ordering.API.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderingContext))]
-    [Migration("20231020070731_Initial")]
+    [Migration("20231021033157_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -133,9 +133,6 @@ namespace Ordering.API.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "orderseq", "ordering");
 
-                    b.Property<int>("OrderStatusId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("_buyerId")
                         .HasColumnType("int")
                         .HasColumnName("BuyerId");
@@ -158,19 +155,13 @@ namespace Ordering.API.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderStatusId");
-
                     b.HasIndex("_buyerId");
 
                     b.HasIndex("_orderStatusId");
 
                     b.HasIndex("_paymentMethodId");
 
-                    b.ToTable("orders", "ordering", t =>
-                        {
-                            t.Property("OrderStatusId")
-                                .HasColumnName("OrderStatusId1");
-                        });
+                    b.ToTable("orders", "ordering");
                 });
 
             modelBuilder.Entity("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate.OrderItem", b =>
@@ -268,17 +259,11 @@ namespace Ordering.API.Infrastructure.Migrations
 
             modelBuilder.Entity("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate.Order", b =>
                 {
-                    b.HasOne("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate.OrderStatus", "OrderStatus")
-                        .WithMany()
-                        .HasForeignKey("OrderStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.BuyerAggregate.Buyer", null)
                         .WithMany()
                         .HasForeignKey("_buyerId");
 
-                    b.HasOne("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate.OrderStatus", null)
+                    b.HasOne("OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate.OrderStatus", "OrderStatus")
                         .WithMany()
                         .HasForeignKey("_orderStatusId")
                         .OnDelete(DeleteBehavior.Cascade)

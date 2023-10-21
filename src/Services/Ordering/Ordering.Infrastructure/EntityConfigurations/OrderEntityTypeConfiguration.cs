@@ -63,7 +63,7 @@ internal class OrderEntityTypeConfiguration : IEntityTypeConfiguration<Order>
             .HasForeignKey("_buyerId")
             .IsRequired(false);
 
-        builder.HasOne<OrderStatus>()
+        builder.HasOne(o => o.OrderStatus)
             .WithMany()
             .HasForeignKey("_orderStatusId")
             .IsRequired();

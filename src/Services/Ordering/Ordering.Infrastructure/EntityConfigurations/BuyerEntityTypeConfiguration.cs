@@ -32,6 +32,6 @@ internal class BuyerEntityTypeConfiguration
 
         var navigation = buyerConfiguration.Metadata.FindNavigation(nameof(Buyer.PaymentMethods));
 
-        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+        navigation?.SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

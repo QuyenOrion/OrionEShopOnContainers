@@ -15,7 +15,7 @@ public class OrderingDbContextFactory : IDesignTimeDbContextFactory<OrderingCont
 
         var optionsBuilder = new DbContextOptionsBuilder<OrderingContext>();
 
-        optionsBuilder.UseSqlServer(config["ConnectionStrings:CatalogDb"], sqlServerOptionsAction: o => o.MigrationsAssembly("Ordering.API"));
+        optionsBuilder.UseNpgsql(config["ConnectionStrings:CatalogDb"], o => o.MigrationsAssembly("Ordering.API"));
 
         return new OrderingContext(optionsBuilder.Options);
     }

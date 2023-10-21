@@ -1,20 +1,16 @@
 version: '3.4'
 
 services:
+
   sqldata:
     environment:
-      - SA_PASSWORD=Pass@word
-      - ACCEPT_EULA=Y
-    ports:
-      - "5433:1433"
-    volumes:
-      - eshop-sqldata:/var/opt/mssql
+      - POSTGRES_PASSWORD=Pass@word
 
   ordering.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings__CatalogDb=${ESHOP_AZURE_CATALOG_DB:-Server=sqldata;Database=OrionEShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word;Encrypt=False;TrustServerCertificate=true}
+      - ConnectionStrings__OrderingDb=${ESHOP_AZURE_ORDERING_DB:-Host=sqldata;Database=OrderingDb;Username=postgres; Password=Pass@word;}
     ports:
       - "80"
       - "443"

@@ -3,7 +3,13 @@ version: '3.4'
 services:
 
   sqldata:
-    image: mcr.microsoft.com/mssql/server:2019-latest 
+    image: postgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi

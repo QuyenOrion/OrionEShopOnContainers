@@ -7,7 +7,7 @@ public class OrderingContextDesignFactory : IDesignTimeDbContextFactory<Ordering
     public OrderingContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<OrderingContext>()
-            .UseSqlServer("Server=.;Initial Catalog=OrionEShopOnContainers.Services.OrderingDb;Integrated Security=true");
+            .UseNpgsql("Host=.;Database=OrderingDb;Username=postgres; Password=Pass@word;");
 
         return new OrderingContext(optionsBuilder.Options, new NoMediator());
     }

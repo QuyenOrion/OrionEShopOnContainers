@@ -19,3 +19,5 @@ global using OrionEShopOnContainer.Services.Ordering.API.Extensions;
 global using OrionEShopOnContainer.Services.Ordering.API.Application.Commands;
 global using OrionEShopOnContainer.Services.Ordering.API.Models;
 global using OrionEShopOnContainer.Services.Ordering.Infrastructure;
+global using OrionEShopOnContainer.Services.Ordering.Infrastructure.Repositories;
+

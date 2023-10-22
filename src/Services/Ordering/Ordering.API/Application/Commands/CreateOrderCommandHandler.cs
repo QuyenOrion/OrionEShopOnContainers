@@ -3,13 +3,15 @@
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, bool>
 {
     private readonly ILogger<CreateOrderCommandHandler> _logger;
+    private readonly IOrderRepository _orderRepository;
 
-    public CreateOrderCommandHandler(ILogger<CreateOrderCommandHandler> logger)
+    public CreateOrderCommandHandler(ILogger<CreateOrderCommandHandler> logger, IOrderRepository orderRepository)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
     }
 
-    public Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var address = new Address(request.Street, request.City, request.State, request.Country, request.ZipCode);
         var order = new Order(request.UserId, request.UserId, address, request.CardTypeId, request.CardNumber,
@@ -22,6 +24,8 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, boo
 
         _logger.LogInformation("Creating Order - Order: {@Order}", order);
 
-        return Task.FromResult(true);
+        _orderRepository.Add(order);
+
+        return await _orderRepository.UnitOfWork.SaveEntitiesAsync();
     }
 }

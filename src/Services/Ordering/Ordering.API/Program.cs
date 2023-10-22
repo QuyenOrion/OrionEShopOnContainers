@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Ordering.API.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssemblyContaining<Program>();
 });
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 
@@ -33,10 +35,10 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<OrderingContext>();
-    if (dbContext != null)
-    {
-        await dbContext.Database.MigrateAsync();
-    }
+    await dbContext.Database.MigrateAsync();
+
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderingContextSeed>>();
+    await new OrderingContextSeed().SeedAsync(dbContext, logger);
 }
 
 await app.RunAsync();

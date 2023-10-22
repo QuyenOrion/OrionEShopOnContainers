@@ -1,6 +1,6 @@
 ﻿namespace OrionEShopOnContainer.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
 
-public interface IOrderRepository
+public interface IOrderRepository : IRepository<Order>
 {
     Order Add(Order order);
 

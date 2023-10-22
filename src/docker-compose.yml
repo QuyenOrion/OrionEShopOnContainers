@@ -5,11 +5,13 @@ services:
   sqldata:
     image: postgres
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+  identity.api:
+    image: ${REGISTRY:-eshop}/identity.api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+    depends_on:
+      - sqldata
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
@@ -18,3 +20,15 @@ services:
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
     depends_on:
       - sqldata
+
+  webshoppingagg:
+    image: ${REGISTRY:-eshop}/webshoppingagg:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ApiGateways/Web.Bff.Shopping/Web.Shopping.HttpAggregator/Dockerfile
+    depends_on:
+      - sqldata
+      - identity.api
+      - ordering.api
+
+  

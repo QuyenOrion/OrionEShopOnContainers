@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{87C266D0-063E-4277-BFD8-E24AD9CF611C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web.Bff.Shopping", "Web.Bff.Shopping", "{299179FF-66C5-47A2-8891-F4CEEA569825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Shopping.HttpAggregator", "ApiGateways\Web.Bff.Shopping\Web.Shopping.HttpAggregator\Web.Shopping.HttpAggregator.csproj", "{68953092-590D-437B-88D2-0F280052FFCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{87C266D0-063E-4277-BFD8-E24AD9CF611C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C266D0-063E-4277-BFD8-E24AD9CF611C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C266D0-063E-4277-BFD8-E24AD9CF611C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68953092-590D-437B-88D2-0F280052FFCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68953092-590D-437B-88D2-0F280052FFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68953092-590D-437B-88D2-0F280052FFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68953092-590D-437B-88D2-0F280052FFCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,8 @@ Global
 		{F6FE9E1C-5CBA-4ACF-B96E-EA6E719A5DE9} = {BB699567-D708-43F5-A38B-7C835F4EB91E}
 		{F486E3D3-B378-4AB3-B081-CDBD1D08289B} = {E107F46A-03B5-4F04-B0A2-8ACCDCE0F7B4}
 		{87C266D0-063E-4277-BFD8-E24AD9CF611C} = {F486E3D3-B378-4AB3-B081-CDBD1D08289B}
+		{299179FF-66C5-47A2-8891-F4CEEA569825} = {97B88516-ECDE-45B7-B1AC-26E61F0B8674}
+		{68953092-590D-437B-88D2-0F280052FFCC} = {299179FF-66C5-47A2-8891-F4CEEA569825}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75C20008-DC2E-47E3-9917-58C23D52A2C9}

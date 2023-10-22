@@ -6,17 +6,30 @@ services:
     environment:
       - POSTGRES_PASSWORD=Pass@word
 
-  ordering.api:
+  identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings__OrderingDb=${ESHOP_AZURE_ORDERING_DB:-Host=sqldata;Database=OrderingDb;Username=postgres; Password=Pass@word;}
+      - ASPNETCORE_URLS=http://0.0.0.0:80
     ports:
-      - "80"
-      - "443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - "5105:80"
+
+  ordering-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Kestrel__Endpoints__HTTP__Url=http://0.0.0.0:80
+      - ConnectionStrings__OrderingDb=${ESHOP_AZURE_ORDERING_DB:-Host=sqldata;Database=OrderingDb;Username=postgres; Password=Pass@word;}
+      - Identity__Url=http://identity-api
+      - PORT=80
+    ports:
+      - "5102:80"
+
+  webshoppingagg:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - Identity__Url=http://identity-api
+    ports:
+      - "5121:80"
 
 volumes:
   eshop-sqldata:

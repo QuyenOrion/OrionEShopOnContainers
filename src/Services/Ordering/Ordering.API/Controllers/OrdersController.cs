@@ -4,6 +4,7 @@ namespace Ordering.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly ILogger<OrdersController> _logger;

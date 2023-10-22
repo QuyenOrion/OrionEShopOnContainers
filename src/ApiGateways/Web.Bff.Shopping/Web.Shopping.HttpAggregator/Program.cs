@@ -7,16 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", opts =>
-    {
-        opts.Authority = "https://localhost:5001";
+//builder.Services.AddAuthentication("Bearer")
+//    .AddJwtBearer("Bearer", opts =>
+//    {
+//        opts.Authority = "https://localhost:5001";
 
-        opts.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false
-        };
-    });
+//        opts.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateAudience = false
+//        };
+//    });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,9 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

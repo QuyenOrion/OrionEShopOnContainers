@@ -5,16 +5,16 @@ services:
   sqldata:
     image: postgres
 
-  identity.api:
-    image: ${REGISTRY:-eshop}/identity.api:${PLATFORM:-linux}-${TAG:-latest}
+  identity-api:
+    image: ${REGISTRY:-eshop}/identity-api:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
     depends_on:
       - sqldata
 
-  ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
+  ordering-api:
+    image: ${REGISTRY:-eshop}/ordering-api:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
@@ -28,7 +28,7 @@ services:
       dockerfile: ApiGateways/Web.Bff.Shopping/Web.Shopping.HttpAggregator/Dockerfile
     depends_on:
       - sqldata
-      - identity.api
-      - ordering.api
+      - identity-api
+      - ordering-api
 
   

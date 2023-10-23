@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Identity.API
+namespace OrionEShopOnContainer.Services.Identity.API
 {
     public class Startup
     {

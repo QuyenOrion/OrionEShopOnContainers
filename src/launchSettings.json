@@ -6,7 +6,8 @@
       "serviceActions": {
         "ordering-api": "StartDebugging",
         "identity-api": "StartDebugging",
-        "webshoppingagg": "StartDebugging"
+        "webshoppingagg": "StartDebugging",
+        "webmvc": "StartDebugging"
       }
     }
   }

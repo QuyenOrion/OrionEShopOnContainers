@@ -31,4 +31,11 @@ services:
       - identity-api
       - ordering-api
 
+  webmvc:
+    image: ${REGISTRY:-eshop}/webmvc:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Webs/WebMVC/Dockerfile
+    depends_on:
+      - webshoppingagg
   

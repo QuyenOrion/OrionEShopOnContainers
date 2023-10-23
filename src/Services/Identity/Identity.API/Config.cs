@@ -5,7 +5,7 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Identity.API
+namespace OrionEShopOnContainer.Services.Identity.API
 {
     public static class Config
     {

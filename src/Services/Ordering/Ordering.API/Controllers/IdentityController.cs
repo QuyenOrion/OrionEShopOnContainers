@@ -12,5 +12,12 @@ namespace Web.Shopping.HttpAggregator.Controllers
         {
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(id);
+        }
     }
 }

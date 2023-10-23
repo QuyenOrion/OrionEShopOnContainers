@@ -9,9 +9,10 @@ services:
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "5105:80"
+      - "5001:443"
 
   ordering-api:
     environment:
@@ -28,6 +29,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - Identity__Url=http://identity-api
+      - Urls__Orders=http://ordering-api
     ports:
       - "5121:80"
 

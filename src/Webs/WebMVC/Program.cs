@@ -22,6 +22,7 @@ services.AddAuthentication(options =>
         options.ClientSecret = "secret";
         options.ResponseType = "code";
         options.RequireHttpsMetadata = false;
+        options.CallbackPath = "/signin-oidc";
         options.ConfigurationManager = new Microsoft.IdentityModel.Protocols.ConfigurationManager<OpenIdConnectConfiguration>(
             $"{options.Authority}/.well-known/openid-configuration", 
             new OpenIdConnectConfigurationRetriever(), 

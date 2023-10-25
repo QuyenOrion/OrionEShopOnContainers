@@ -44,8 +44,14 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientUri = "http://localhost:5100",
 
                     AllowedGrantTypes = GrantTypes.Code,
+                    AllowAccessTokensViaBrowser = false,
+                    RequireConsent = false,
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    RequirePkce = false,
 
                     // where to redirect to after login
                     RedirectUris = { "http://localhost:5100/signin-oidc" },

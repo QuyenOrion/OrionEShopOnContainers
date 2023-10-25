@@ -10,9 +10,11 @@ using IdentityServer4.Validation;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,6 +40,14 @@ namespace OrionEShopOnContainer.Services.Identity.API
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
+
+                options.IssuerUri = "null";
+                options.Authentication.CookieLifetime = TimeSpan.FromHours(2);
+
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
@@ -56,6 +66,9 @@ namespace OrionEShopOnContainer.Services.Identity.API
             }
 
             app.UseStaticFiles();
+            // This cookie policy fixes login issues with Chrome 80+ using HHTP
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Lax });
+
             app.UseRouting();
 
             app.UseIdentityServer();

@@ -37,7 +37,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - Identity__Url=http://identity-api
+      - IdentityUrl=http://identity-api
     ports:
       - "5100:80"
 

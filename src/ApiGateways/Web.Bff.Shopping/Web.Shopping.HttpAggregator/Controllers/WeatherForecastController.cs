@@ -29,6 +29,7 @@ namespace Web.Shopping.HttpAggregator.Controllers
                 Policy = new DiscoveryPolicy
                 {
                     RequireHttps = false,
+                    ValidateEndpoints = false,
                 }
             });
             if (disco.IsError)

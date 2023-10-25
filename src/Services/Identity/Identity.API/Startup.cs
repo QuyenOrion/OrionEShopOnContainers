@@ -2,10 +2,19 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4.Configuration;
+using IdentityServer4.ResponseHandling;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
+using IdentityServer4.Validation;
+using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OrionEShopOnContainer.Services.Identity.API
 {
@@ -22,6 +31,9 @@ namespace OrionEShopOnContainer.Services.Identity.API
         {
             services.AddControllersWithViews();
 
+            if (Environment.IsDevelopment())
+                services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
+
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
@@ -29,7 +41,8 @@ namespace OrionEShopOnContainer.Services.Identity.API
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients);
+                .AddInMemoryClients(Config.Clients)
+                .AddTestUsers(TestUsers.Users);
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -52,6 +65,24 @@ namespace OrionEShopOnContainer.Services.Identity.API
             {
                 endpoints.MapDefaultControllerRoute();
             });
+        }
+    }
+
+    public class CustomDiscoveryResponseGenerator : IdentityServer4.ResponseHandling.DiscoveryResponseGenerator
+    {
+        public CustomDiscoveryResponseGenerator(IdentityServerOptions options, IResourceStore resourceStore, IKeyMaterialService keys, ExtensionGrantValidator extensionGrant, ISecretsListParser secretParser, IResourceOwnerPasswordValidator resourceOwnerPasswordValidator, ILogger<DiscoveryResponseGenerator> logger) :
+            base(options, resourceStore, keys, extensionGrant, secretParser, resourceOwnerPasswordValidator, logger)
+        {
+
+        }
+
+        public override async Task<Dictionary<string, object>> CreateDiscoveryDocumentAsync(string baseUrl, string issuerUri)
+        {
+            var res = await base.CreateDiscoveryDocumentAsync(baseUrl, issuerUri);
+
+            res["authorization_endpoint"] = "http://localhost:5105/connect/authorize";
+
+            return res;
         }
     }
 }

@@ -1,3 +1,5 @@
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,12 +17,17 @@ services.AddAuthentication(options =>
     .AddCookie("Cookies")
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = builder.Configuration.GetValue<string>("Identity:Url");
-
+        options.Authority = builder.Configuration.GetValue<string>("IdentityUrl");
         options.ClientId = "mvc";
         options.ClientSecret = "secret";
         options.ResponseType = "code";
         options.RequireHttpsMetadata = false;
+        options.ConfigurationManager = new Microsoft.IdentityModel.Protocols.ConfigurationManager<OpenIdConnectConfiguration>(
+            $"{options.Authority}/.well-known/openid-configuration", 
+            new OpenIdConnectConfigurationRetriever(), 
+            new HttpDocumentRetriever { RequireHttps = false }
+            );
+        options.Validate();
 
         options.SaveTokens = true;
     });

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols;
@@ -33,6 +34,8 @@ services.AddAuthentication(options =>
             new HttpDocumentRetriever { RequireHttps = false }
             );
         options.Validate();
+        options.GetClaimsFromUserInfoEndpoint = true;
+        //options.Scope.Add("email");
 
         options.SaveTokens = true;
     });

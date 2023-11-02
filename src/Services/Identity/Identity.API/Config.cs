@@ -15,6 +15,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email(),
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -63,7 +64,8 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
                     }
                 }
             };

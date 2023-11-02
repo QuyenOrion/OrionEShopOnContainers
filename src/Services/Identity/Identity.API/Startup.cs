@@ -33,8 +33,8 @@ namespace OrionEShopOnContainer.Services.Identity.API
         {
             services.AddControllersWithViews();
 
-            if (Environment.IsDevelopment())
-                services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
+            //if (Environment.IsDevelopment())
+            //    services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -94,6 +94,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
             var res = await base.CreateDiscoveryDocumentAsync(baseUrl, issuerUri);
 
             res["authorization_endpoint"] = "http://localhost:5105/connect/authorize";
+            res["end_session_endpoint"] = "http://localhost:5105/connect/endsession";
 
             return res;
         }

@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@if (User.FindFirst(x => x.Type == "name") != null)
+{
+    <form asp-area="" asp-controller="Account" asp-action="SignOut" method="post" id="logoutForm" class="navbar-right">
+        <a class="esh-identity-item"
+           href="javascript:document.getElementById('logoutForm').submit()">
+
+            <div class="esh-identity-name esh-identity-name--upper">Log Out</div>
+            <img class="esh-identity-image" src="~/images/logout.png">
+        </a>
+    </form>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignIn">Sign in</a>
+    </li>
+}

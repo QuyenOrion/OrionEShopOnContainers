@@ -30,7 +30,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
 
                     // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-
+                    
                     // secret for authentication
                     ClientSecrets =
                     {
@@ -44,7 +44,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    ClientUri = "http://localhost:5100",
+                    ClientUri = "https://localhost:44321",
 
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowAccessTokensViaBrowser = false,
@@ -52,12 +52,13 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
                     RequirePkce = false,
+                    
 
                     // where to redirect to after login
-                    RedirectUris = { "http://localhost:5100/signin-oidc" },
+                    RedirectUris = { "https://localhost:44321/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "http://localhost:5100/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {

@@ -35,7 +35,9 @@ services.AddAuthentication(options =>
             );
         options.Validate();
         options.GetClaimsFromUserInfoEndpoint = true;
-        //options.Scope.Add("email");
+        options.Scope.Add("email");
+        options.Scope.Add("myclaim");
+        options.ClaimActions.MapUniqueJsonKey("myclaim", "myclaim");
 
         options.SaveTokens = true;
     });

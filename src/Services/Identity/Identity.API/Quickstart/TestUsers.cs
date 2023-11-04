@@ -38,6 +38,7 @@ namespace IdentityServerHost.Quickstart.UI
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
+                            new Claim("myclaim", "aaaa"),
                             new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
                             new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)

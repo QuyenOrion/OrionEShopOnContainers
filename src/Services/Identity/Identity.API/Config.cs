@@ -8,6 +8,17 @@ using System.Collections.Generic;
 
 namespace OrionEShopOnContainer.Services.Identity.API
 {
+    public class MyClaim : IdentityResource
+    {
+        public MyClaim()
+        {
+            base.Name = "myclaim";
+            base.DisplayName = "My Claim";
+            base.Description = "My Claim";
+            base.Emphasize = true;
+            base.UserClaims = new List<string> { "myclaim" };
+        }
+    }
     public static class Config
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -16,6 +27,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResources.Email(),
+                new MyClaim(),
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -66,6 +78,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
+                        "myclaim",
                     }
                 }
             };

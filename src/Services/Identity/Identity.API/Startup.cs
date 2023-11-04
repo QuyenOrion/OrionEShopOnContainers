@@ -12,6 +12,7 @@ using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -25,9 +26,12 @@ namespace OrionEShopOnContainer.Services.Identity.API
     {
         public IWebHostEnvironment Environment { get; }
 
-        public Startup(IWebHostEnvironment environment)
+        public IConfiguration Configuration { get; }
+
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -60,8 +64,8 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                    options.ClientId = "831122505067-h6glfjmpnaatf8495mkc7gn51je286b0.apps.googleusercontent.com";
-                    options.ClientSecret = "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";
+                    options.ClientId = Configuration.GetValue<string>("GoogleOAuth:ClientId");
+                    options.ClientSecret = Configuration.GetValue<string>("GoogleOAuth:ClientSecret");
                 });
 
             // not recommended for production - you need to store your key material somewhere secure

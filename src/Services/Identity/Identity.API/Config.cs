@@ -60,12 +60,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     ClientUri = "https://localhost:44321",
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    AllowAccessTokensViaBrowser = false,
-                    RequireConsent = false,
-                    AllowOfflineAccess = true,
-                    AlwaysIncludeUserClaimsInIdToken = true,
-                    RequirePkce = false,
-                    
+                    AllowOfflineAccess = true,                    
 
                     // where to redirect to after login
                     RedirectUris = { "https://localhost:44321/signin-oidc" },
@@ -79,6 +74,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "myclaim",
+                        "api1"
                     }
                 }
             };

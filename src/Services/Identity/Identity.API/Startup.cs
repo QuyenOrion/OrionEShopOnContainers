@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.ResponseHandling;
 using IdentityServer4.Services;
@@ -53,6 +54,15 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddTestUsers(TestUsers.Users);
+
+            services.AddAuthentication()
+                .AddGoogle("Google", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                    options.ClientId = "831122505067-h6glfjmpnaatf8495mkc7gn51je286b0.apps.googleusercontent.com";
+                    options.ClientSecret = "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";
+                });
 
             // not recommended for production - you need to store your key material somewhere secure
             if (Environment.IsDevelopment())

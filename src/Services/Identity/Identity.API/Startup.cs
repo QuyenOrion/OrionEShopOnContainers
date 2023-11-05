@@ -46,7 +46,6 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
 
-                options.IssuerUri = "null";
                 options.Authentication.CookieLifetime = TimeSpan.FromHours(2);
 
                 options.Events.RaiseErrorEvents = true;

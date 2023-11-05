@@ -38,6 +38,8 @@ services.AddAuthentication(options =>
         options.Scope.Add("email");
         options.Scope.Add("myclaim");
         options.ClaimActions.MapUniqueJsonKey("myclaim", "myclaim");
+        options.Scope.Add("api1");
+        options.Scope.Add("offline_access");
 
         options.SaveTokens = true;
     });

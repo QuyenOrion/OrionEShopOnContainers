@@ -30,7 +30,7 @@ namespace Web.Shopping.HttpAggregator.Controllers
                 {
                     RequireHttps = false,
                     ValidateEndpoints = false,
-                }
+                },
             });
             if (disco.IsError)
             {

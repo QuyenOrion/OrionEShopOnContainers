@@ -4,6 +4,8 @@
 
 using IdentityServer4;
 using IdentityServer4.Configuration;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.ResponseHandling;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -12,12 +14,14 @@ using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OrionEShopOnContainer.Services.Identity.API
@@ -41,6 +45,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
             //if (Environment.IsDevelopment())
             //    services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
+            string connectionString = Configuration.GetConnectionString("Default");
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
@@ -53,10 +58,17 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
             })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
-                .AddTestUsers(TestUsers.Users);
+                .AddTestUsers(TestUsers.Users)
+                .AddConfigurationStore(opts =>
+                {
+                    opts.ConfigureDbContext = b => b.UseNpgsql(connectionString,
+                                    sql => sql.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                })
+                .AddOperationalStore(opts =>
+                {
+                    opts.ConfigureDbContext = b => b.UseNpgsql(connectionString,
+                                    sql => sql.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                });
 
             services.AddAuthentication()
                 .AddGoogle("Google", options =>
@@ -87,11 +99,50 @@ namespace OrionEShopOnContainer.Services.Identity.API
 
             app.UseIdentityServer();
 
+            InitializeDatabase(app);
+
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
             });
+        }
+
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                context.Database.Migrate();
+                if (!context.Clients.Any())
+                {
+                    foreach (var client in Config.Clients)
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    foreach (var resource in Config.IdentityResources)
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiScopes.Any())
+                {
+                    foreach (var resource in Config.ApiScopes)
+                    {
+                        context.ApiScopes.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+            }
         }
     }
 

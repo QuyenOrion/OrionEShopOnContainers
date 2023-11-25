@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebMVC.Controllers
+namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
 {
     public class AccountController : Controller
     {

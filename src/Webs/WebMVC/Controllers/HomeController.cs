@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using OrionEShopOnContainer.Webs.WebMVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;

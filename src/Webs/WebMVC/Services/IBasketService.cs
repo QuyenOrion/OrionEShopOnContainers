@@ -1,17 +1,39 @@
-﻿using OrionEShopOnContainer.Webs.WebMVC.Models;
+﻿using System.Text;
+using System.Text.Json;
 
-namespace OrionEShopOnContainer.Webs.WebMVC.Services
+namespace OrionEShopOnContainer.Webs.WebMVC.Services;
+
+public interface IBasketService
 {
-    public interface IBasketService
+    Task AddItemToBasket(ApplicationUser user, int productId);
+}
+
+public class BasketService : IBasketService
+{
+    private readonly ILogger<BasketService> _logger;
+    private readonly HttpClient _httpClient; 
+    private readonly string _purchaseUrl;
+
+    public BasketService(ILogger<BasketService> logger, IOptions<AppSettings> appsettings, HttpClient httpClient)
     {
-        Task AddItemToBasket(ApplicationUser user, int productId);
+        _logger = logger;
+        _httpClient = httpClient;
+        _purchaseUrl = appsettings.Value.PurchaseUrl;
     }
 
-    public class BasketService : IBasketService
+    public async Task AddItemToBasket(ApplicationUser user, int productId)
     {
-        public Task AddItemToBasket(ApplicationUser user, int productId)
+        var uri = API.Purchase.AddItemToBasket(_purchaseUrl);
+
+        var newItem = new
         {
-            throw new NotImplementedException();
-        }
+            CatalogItemId = productId,
+            BasketId = user.Id,
+            Quantity = 1
+        };
+
+        var basketContent = new StringContent(JsonSerializer.Serialize(newItem), Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync(uri, basketContent);
     }
 }

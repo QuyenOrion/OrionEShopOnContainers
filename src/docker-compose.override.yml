@@ -10,6 +10,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings__Default=${ESHOP_AZURE_ORDERING_DB:-Host=sqldata;Database=IdentityDb;Username=postgres; Password=Pass@word;}
     ports:
       - "5105:80"
       - "5001:443"

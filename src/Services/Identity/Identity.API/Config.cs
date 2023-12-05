@@ -57,16 +57,16 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    ClientUri = "https://localhost:44321",
+                    ClientUri = "http://localhost:5100",
 
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowOfflineAccess = true,                    
 
                     // where to redirect to after login
-                    RedirectUris = { "https://localhost:44321/signin-oidc" },
+                    RedirectUris = { "http://localhost:5100/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5100/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {

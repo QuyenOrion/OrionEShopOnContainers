@@ -42,8 +42,8 @@ namespace OrionEShopOnContainer.Services.Identity.API
         {
             services.AddControllersWithViews();
 
-            //if (Environment.IsDevelopment())
-            //    services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
+            if (Environment.IsDevelopment())
+                services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
             string connectionString = Configuration.GetConnectionString("Default");
             var builder = services.AddIdentityServer(options =>

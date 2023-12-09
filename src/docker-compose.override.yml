@@ -15,6 +15,17 @@ services:
       - "5105:80"
       - "5001:443"
 
+  basket-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Kestrel__Endpoints__HTTP__Url=http://0.0.0.0:80
+      - Kestrel__Endpoints__GRPC__Url=http://0.0.0.0:81
+      - Kestrel__Endpoints__GRPC__Protocols=Http2
+      - PORT=80
+    ports:
+      - "5103:80"
+      - "9103:81"
+
   ordering-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

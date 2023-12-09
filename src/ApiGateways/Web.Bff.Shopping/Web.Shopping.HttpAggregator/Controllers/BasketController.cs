@@ -27,7 +27,7 @@ public class BasketController : ControllerBase
 
         if(item == null)
         {
-            return BadRequest($"Basket with id {basketItem.CatalogItemId} not found.");
+            return BadRequest($"Basket with item id {basketItem.CatalogItemId} not found.");
         }
 
         var currentBasket = (await _basketService.GetByIdAsync(basketItem.BasketId)) ?? new BasketData(basketItem.BasketId);

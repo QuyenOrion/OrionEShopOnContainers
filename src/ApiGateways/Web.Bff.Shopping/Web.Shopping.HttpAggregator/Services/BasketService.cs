@@ -9,6 +9,13 @@ public interface IBasketService
 
 public class BasketService : IBasketService
 {
+    //private readonly Grpc
+
+    public BasketService()
+    {
+            
+    }
+
     public Task<BasketData> GetByIdAsync(string id)
     {
         throw new NotImplementedException();

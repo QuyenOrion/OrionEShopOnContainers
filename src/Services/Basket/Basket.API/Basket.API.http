@@ -1,0 +1,6 @@
+@OrionEShopOnContainers.Services.Basket.API_HostAddress = http://localhost:5037
+
+GET {{OrionEShopOnContainers.Services.Basket.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

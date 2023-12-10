@@ -38,6 +38,7 @@ services:
       - sqldata
       - identity-api
       - ordering-api
+      - basket-api
 
   webmvc:
     image: ${REGISTRY:-eshop}/webmvc:${PLATFORM:-linux}-${TAG:-latest}

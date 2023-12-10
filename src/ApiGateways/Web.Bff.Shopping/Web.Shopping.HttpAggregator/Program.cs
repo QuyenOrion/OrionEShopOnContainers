@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Web.Shopping.HttpAggregator;
+using Web.Shopping.HttpAggregator.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddGrpcServices();
+
+builder.Configuration.GetSection("Urls").Bind(new UrlsConfig());
 
 var app = builder.Build();
 

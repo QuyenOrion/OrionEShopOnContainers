@@ -8,7 +8,7 @@ using OrionEShopOnContainers.Services.Catalog.API.Infrastructure;
 
 #nullable disable
 
-namespace Catalog.API.Infrastructure.Migrations
+namespace OrionEShopOnContainers.Services.Catalog.API.Infrastructure.Migrations
 {
     [DbContext(typeof(CatalogContext))]
     [Migration("20231210102612_Initial")]

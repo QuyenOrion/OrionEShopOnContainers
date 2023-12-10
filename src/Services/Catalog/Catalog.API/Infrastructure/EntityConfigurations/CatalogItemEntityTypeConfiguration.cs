@@ -21,6 +21,8 @@ public class CatalogItemEntityTypeConfiguration : IEntityTypeConfiguration<Catal
         builder.Property(ci => ci.Price)
                 .IsRequired();
 
+        builder.Ignore(ci => ci.PictureUri);
+
         builder.HasOne(ci => ci.CatalogBrand)
                 .WithMany()
                 .HasForeignKey(ci => ci.CatalogBrandId);

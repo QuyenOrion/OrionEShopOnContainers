@@ -1,4 +1,4 @@
-﻿namespace Web.Shopping.HttpAggregator;
+﻿namespace OrionEShopOnContainers.Web.Shopping.HttpAggregator;
 
 public static class Extension
 {

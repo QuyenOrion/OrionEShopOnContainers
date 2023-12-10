@@ -1,7 +1,5 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Web.Shopping.HttpAggregator;
-using Web.Shopping.HttpAggregator.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿namespace Web.Shopping.HttpAggregator.Config
+﻿namespace OrionEShopOnContainers.Web.Shopping.HttpAggregator.Config
 {
     public class UrlsConfig
     {

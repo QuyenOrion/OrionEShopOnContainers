@@ -1,4 +1,4 @@
-﻿using Basket.API.Repositories;
+﻿using OrionEShopOnContainers.Services.Basket.API.Repositories;
 
 namespace OrionEShopOnContainers.Services.Basket.API.Controllers;
 

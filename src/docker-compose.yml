@@ -21,6 +21,14 @@ services:
     depends_on:
       - sqldata
 
+  catalog-api:
+    image: ${REGISTRY:-eshop}/catalog-api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    depends_on:
+      - sqldata
+
   ordering-api:
     image: ${REGISTRY:-eshop}/ordering-api:${PLATFORM:-linux}-${TAG:-latest}
     build:

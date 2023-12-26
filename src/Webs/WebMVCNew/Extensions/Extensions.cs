@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using OrionEShopOnContainer.Webs.WebMVCNew.Models;
 using OrionEShopOnContainer.Webs.WebMVCNew.Services;
+using OrionEShopOnContainers.Services.Service.Common;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace OrionEShopOnContainer.Webs.WebMVCNew.Extensions;
@@ -13,8 +14,10 @@ internal static class Extensions
 {
     public static void AddHttpClientServices(this IServiceCollection services)
     {
+        services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
         services.AddHttpContextAccessor();
-        services.AddHttpClient<IBasketService, BasketService>();
+        services.AddHttpClient<IBasketService, BasketService>()
+            .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         services.AddTransient<IIdentityParser<ApplicationUser>, IdentityParser>();
     }

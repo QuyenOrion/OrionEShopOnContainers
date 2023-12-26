@@ -17,16 +17,14 @@ public interface IBasketService
 public class BasketService : IBasketService
 {
     private readonly ILogger<BasketService> _logger;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly HttpClient _httpClient;
     private readonly string _purchaseUrl;
 
-    public BasketService(ILogger<BasketService> logger, IOptions<AppSettings> appsettings, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+    public BasketService(ILogger<BasketService> logger, IOptions<AppSettings> appsettings, HttpClient httpClient)
     {
         _logger = logger;
         _httpClient = httpClient;
         _purchaseUrl = appsettings.Value.PurchaseUrl;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task AddItemToBasket(ApplicationUser user, int productId)
@@ -41,12 +39,6 @@ public class BasketService : IBasketService
         };
 
         var basketContent = new StringContent(JsonSerializer.Serialize(newItem), Encoding.UTF8, "application/json");
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await GetUserTokenAsync());
         var response = await _httpClient.PostAsync(uri, basketContent);
-    }
-
-    private async Task<string?> GetUserTokenAsync()
-    {
-        return await _httpContextAccessor.HttpContext?.GetTokenAsync(OpenIdConnectDefaults.AuthenticationScheme, "access_token");
     }
 }

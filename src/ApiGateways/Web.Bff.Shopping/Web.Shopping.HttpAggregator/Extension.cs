@@ -17,7 +17,7 @@ public static class Extension
             .AddCallCredentials(async (context, metadata, serviceProvider) =>
             {
                 var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
-                var token = await httpContextAccessor.HttpContext?.GetTokenAsync("Bearer", "access_token");
+                var token = await httpContextAccessor.HttpContext?.GetTokenAsync("access_token");
                 if (!string.IsNullOrEmpty(token))
                 {
                     metadata.Add("Authorization", $"Bearer {token}");
@@ -35,7 +35,7 @@ public static class Extension
             .AddCallCredentials(async (context, metadata, serviceProvider) =>
             {
                 var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
-                var token = await httpContextAccessor.HttpContext?.GetTokenAsync("Bearer", "access_token");
+                var token = await httpContextAccessor.HttpContext?.GetTokenAsync("access_token");
                 if (!string.IsNullOrEmpty(token))
                 {
                     metadata.Add("Authorization", $"Bearer {token}");

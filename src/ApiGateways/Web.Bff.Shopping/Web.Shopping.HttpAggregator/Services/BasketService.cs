@@ -20,11 +20,23 @@ public class BasketService : IBasketService
 
     public async Task<BasketData> GetByIdAsync(string id)
     {
-        _logger.LogDebug("grpc client created, request = {@id}", id);
-        var response = await _basketClient.GetBasketByIdAsync(new BasketRequest { Id = id });
-        _logger.LogDebug("grpc response {@response}", response);
+        try
+        {
+            _logger.LogDebug("grpc client created, request = {@id}", id);
+            var response = await _basketClient.GetBasketByIdAsync(new BasketRequest { Id = id });
+            _logger.LogDebug("grpc response {@response}", response);
 
-        return MapToBasketData(response);
+            return MapToBasketData(response);
+        }
+        catch (Exception ex)
+        {
+            if (ex is Grpc.Core.RpcException rpcEx && rpcEx.StatusCode == Grpc.Core.StatusCode.NotFound)
+                _logger.LogWarning("Basket with id {id} not found", id);
+            else 
+                _logger.LogError("Error occured while getting basket with id {id}", id);
+
+            return null;
+        }
     }
 
     public async Task UpdateAsync(BasketData currentBasket)

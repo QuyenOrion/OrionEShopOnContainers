@@ -18,14 +18,14 @@ public class BasketController : ControllerBase
     [Route("items")]
     public async Task<IActionResult> AddItemToBasketAsync([FromBody] AddBasketItemRequest basketItem)
     {
-        if(basketItem == null || basketItem.Quantity == 0)
+        if (basketItem == null || basketItem.Quantity == 0)
         {
             return BadRequest("Invalid payload");
         }
 
         var item = await _catalogService.GetCatalogItemAsync(basketItem.CatalogItemId);
 
-        if(item == null)
+        if (item == null)
         {
             return BadRequest($"Basket with item id {basketItem.CatalogItemId} not found.");
         }
@@ -34,7 +34,7 @@ public class BasketController : ControllerBase
 
         var product = currentBasket.Items.FirstOrDefault(p => p.ProductId == item.Id);
 
-        if(product == null)
+        if (product == null)
         {
             currentBasket.Items.Add(new BasketDataItem()
             {

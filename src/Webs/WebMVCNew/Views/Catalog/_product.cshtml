@@ -1,0 +1,19 @@
+﻿@model CatalogItem
+
+<form asp-controller="Cart" asp-action="AddToCart">
+    <tr>
+        <td>@Model.Name<input type="hidden" asp-for="@Model.Id" name="id" /></td>
+        <td>@Model.Description</td>
+        <td>@Model.Price</td>
+        <td>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <input type="submit" value="Add to cart" />
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="SignIn">Log in to buy</a>
+            }
+        </td>
+    </tr>
+</form>

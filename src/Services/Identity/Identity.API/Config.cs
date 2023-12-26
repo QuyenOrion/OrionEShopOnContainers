@@ -55,6 +55,22 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 },
                 new Client
                 {
+                    ClientId = "web-shopping-http-aggregator",
+
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    //// scopes that client has access to
+                    //AllowedScopes = { }
+                },
+                new Client
+                {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     ClientUri = "http://localhost:5100",

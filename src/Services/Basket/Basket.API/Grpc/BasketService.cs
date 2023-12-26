@@ -1,5 +1,6 @@
 ﻿namespace GrpcBasket;
 
+[Authorize]
 public class BasketService : Basket.BasketBase
 {
     private readonly IBasketRepository _repository;
@@ -26,7 +27,7 @@ public class BasketService : Basket.BasketBase
         else
             context.Status = new Status(StatusCode.NotFound, $"Basket with id {request.Id} do not exist");
 
-        return null;
+        return new CustomerBasketResponse { Buyerid = request.Id };
     }
 
     public override async Task<CustomerBasketResponse> UpdateBasket(CustomerBasketRequest request, ServerCallContext context)
@@ -42,7 +43,7 @@ public class BasketService : Basket.BasketBase
 
         context.Status = new Status(StatusCode.NotFound, $"Basket with buyer id {request.Buyerid} do not exist");
 
-        return null;
+        return new CustomerBasketResponse { Buyerid = request.Buyerid };
     }
 
     private CustomerBasketResponse MapToCustomerBasketResponse(CustomerBasket customerBasket)

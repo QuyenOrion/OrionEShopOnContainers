@@ -1,42 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
+namespace OrionEShopOnContainer.Webs.WebMVC.Controllers;
+
+[Authorize]
+public class CartController : Controller
 {
-    public class CartController : Controller
+    private readonly IBasketService _basketService;
+    private readonly IIdentityParser<ApplicationUser> _appUserParser;
+
+    public CartController(IBasketService basketService, IIdentityParser<ApplicationUser> appUserParser)
     {
-        private readonly IBasketService _basketService;
-        private readonly IIdentityParser<ApplicationUser> _appUserParser;
+        _basketService = basketService;
+        _appUserParser = appUserParser;
+    }
 
-        public CartController(IBasketService basketService, IIdentityParser<ApplicationUser> appUserParser)
+    [HttpPost]
+    public async Task<IActionResult> AddToCart(CatalogItem productDetails)
+    {
+        try
         {
-            _basketService = basketService;
-            _appUserParser = appUserParser;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddToCart(CatalogItem productDetails)
-        {
-            try
+            if(productDetails?.Id != null)
             {
-                if(productDetails?.Id != null)
-                {
-                    var user = _appUserParser.Parse(HttpContext.User);
-                    await _basketService.AddItemToBasket(user, productDetails.Id);
-                }
-
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex);
+                var user = _appUserParser.Parse(HttpContext.User);
+                await _basketService.AddItemToBasket(user, productDetails.Id);
             }
 
-            return RedirectToAction("Index", "Home", new { errorMsg = ViewBag.BasketInoperativeMsg });
+            return RedirectToAction("Index", "Catalog");
+        }
+        catch (Exception ex)
+        {
+            HandleException(ex);
         }
 
-        private void HandleException(Exception ex)
-        {
-            ViewBag.BasketInoperativeMsg = $"Basket Service is inoperative {ex.GetType().Name} - {ex.Message}";
-        }
+        return RedirectToAction("Index", "Catalog", new { errorMsg = ViewBag.BasketInoperativeMsg });
+    }
+
+    private void HandleException(Exception ex)
+    {
+        ViewBag.BasketInoperativeMsg = $"Basket Service is inoperative {ex.GetType().Name} - {ex.Message}";
     }
 }

@@ -116,8 +116,11 @@ namespace OrionEShopOnContainer.Services.Identity.API
 
                 var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
-                if (!context.Clients.Any())
+                if (!context.Clients.Any() || context.Clients.Count() != Config.Clients.Count())
                 {
+                    if (context.Clients.Any())
+                        context.Clients.RemoveRange(context.Clients.ToList());
+
                     foreach (var client in Config.Clients)
                     {
                         context.Clients.Add(client.ToEntity());
@@ -125,8 +128,11 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     context.SaveChanges();
                 }
 
-                if (!context.IdentityResources.Any())
+                if (!context.IdentityResources.Any() || context.IdentityResources.Count() != Config.IdentityResources.Count())
                 {
+                    if (context.IdentityResources.Any())
+                        context.IdentityResources.RemoveRange(context.IdentityResources.ToList());
+
                     foreach (var resource in Config.IdentityResources)
                     {
                         context.IdentityResources.Add(resource.ToEntity());
@@ -134,8 +140,11 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     context.SaveChanges();
                 }
 
-                if (!context.ApiScopes.Any())
+                if (!context.ApiScopes.Any() || context.ApiScopes.Count() != Config.ApiScopes.Count())
                 {
+                    if (context.ApiScopes.Any())
+                        context.ApiScopes.RemoveRange(context.ApiScopes.ToList());
+
                     foreach (var resource in Config.ApiScopes)
                     {
                         context.ApiScopes.Add(resource.ToEntity());

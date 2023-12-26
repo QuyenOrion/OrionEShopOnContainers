@@ -1,9 +1,11 @@
 ﻿using CatalogApi;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using static CatalogApi.Catalog;
 
 namespace OrionEShopOnContainers.Services.Catalog.API.Grpc;
 
+[Authorize]
 public class CatalogService : CatalogBase
 {
     private readonly CatalogContext _catalogContext;
@@ -25,7 +27,7 @@ public class CatalogService : CatalogBase
             return null;
         }
 
-        var catalog = await _catalogContext.CatalogItems.FirstOrDefaultAsync(item => item.Id == request.Id);
+        var catalog = await _catalogContext.CatalogItems.Include(c => c.CatalogType).Include(c => c.CatalogBrand).FirstOrDefaultAsync(item => item.Id == request.Id);
 
         if (catalog != null)
         {
@@ -41,8 +43,18 @@ public class CatalogService : CatalogBase
                 OnReorder = catalog.OnReorder,
                 PictureFileName = catalog.PictureFileName,
                 Price = (double)catalog.Price,
-                PictureUri = catalog.PictureUri,
+                PictureUri = catalog.PictureUri ?? catalog.PictureFileName,
                 RestockThreshold = catalog.RestockThreshold,
+                CatalogType = new CatalogApi.CatalogType
+                {
+                    Id = catalog.CatalogTypeId,
+                    Type = catalog.CatalogType.Type
+                },
+                CatalogBrand = new CatalogApi.CatalogBrand
+                {
+                    Id = catalog.CatalogBrandId,
+                    Name = catalog.CatalogBrand.Brand
+                }
             };
         }
 

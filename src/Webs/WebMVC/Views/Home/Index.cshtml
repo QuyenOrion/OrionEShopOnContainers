@@ -1,32 +1,13 @@
-﻿@{
+﻿@model CatalogIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
-@using Microsoft.AspNetCore.Authentication
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var item in Model.CatalogItems)
+    {
+        <p>@item.Id</p>
+    }
 </div>
-
-@if(User != null && User.Identity != null && User.Identity.IsAuthenticated)
-{
-    <h2>Claims</h2>
-
-    <dl>
-        @foreach (var claim in User.Claims)
-        {
-            <dt>@claim.Type</dt>
-            <dd>@claim.Value</dd>
-        }
-    </dl>
-
-    <h2>Properties</h2>
-
-    <dl>
-        @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
-        {
-            <dt>@prop.Key</dt>
-            <dd>@prop.Value</dd>
-        }
-    </dl>
-}

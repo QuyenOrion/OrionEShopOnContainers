@@ -55,7 +55,7 @@ services:
     image: ${REGISTRY:-eshop}/webmvc:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
-      dockerfile: Webs/WebMVCNew/Dockerfile
+      dockerfile: Webs/WebMVC/Dockerfile
     depends_on:
       - webshoppingagg
   

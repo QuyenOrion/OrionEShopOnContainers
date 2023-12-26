@@ -1,9 +1,8 @@
-﻿@Model CatalogItem
+﻿@model CatalogItem
 
 <form asp-controller="Cart" asp-action="AddToCart">
     <tr>
-        <td>@Model.Id</td>
-        <td>@Model.Name</td>
+        <td>@Model.Name<input type="hidden" asp-for="@Model.Id" name="id" /></td>
         <td>@Model.Description</td>
         <td>@Model.Price</td>
         <td>

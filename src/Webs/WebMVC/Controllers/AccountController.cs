@@ -22,7 +22,7 @@ namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
 
             // "Catalog" because UrlHelper doesn't support nameof() for controllers
             // https://github.com/aspnet/Mvc/issues/5853
-            return RedirectToAction("Index", "Cart");
+            return RedirectToAction("Index", "Catalog");
         }
 
         public async Task<IActionResult> Signout()
@@ -32,7 +32,7 @@ namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
 
             // "Catalog" because UrlHelper doesn't support nameof() for controllers
             // https://github.com/aspnet/Mvc/issues/5853
-            var homeUrl = Url.Action("Index", "Cart");
+            var homeUrl = Url.Action("Index", "Catalog");
             return new SignOutResult(OpenIdConnectDefaults.AuthenticationScheme,
                 new AuthenticationProperties { RedirectUri = homeUrl });
         }

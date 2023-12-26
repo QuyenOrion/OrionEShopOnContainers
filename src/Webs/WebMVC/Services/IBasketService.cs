@@ -1,4 +1,10 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.Options;
+using OrionEShopOnContainer.Webs.WebMVC.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 
 namespace OrionEShopOnContainer.Webs.WebMVC.Services;
@@ -11,7 +17,7 @@ public interface IBasketService
 public class BasketService : IBasketService
 {
     private readonly ILogger<BasketService> _logger;
-    private readonly HttpClient _httpClient; 
+    private readonly HttpClient _httpClient;
     private readonly string _purchaseUrl;
 
     public BasketService(ILogger<BasketService> logger, IOptions<AppSettings> appsettings, HttpClient httpClient)
@@ -33,7 +39,6 @@ public class BasketService : IBasketService
         };
 
         var basketContent = new StringContent(JsonSerializer.Serialize(newItem), Encoding.UTF8, "application/json");
-
         var response = await _httpClient.PostAsync(uri, basketContent);
     }
 }

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
+using OrionEShopOnContainer.Webs.WebMVC.Models;
 
 namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
 {
@@ -17,23 +15,15 @@ namespace OrionEShopOnContainer.Webs.WebMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var vm = new CatalogIndexViewModel
+            {
+                CatalogItems = new List<CatalogItem> { new() { Id = 1 }, new() { Id = 2 } }
+            };
+            return View(vm);
         }
 
         public IActionResult Privacy()
         {
-            return View();
-        }
-
-        public async Task<IActionResult> CallApi()
-        {
-            var token = await HttpContext.GetTokenAsync("access_token");
-            
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var content = await client.GetStringAsync("https://localhost:44381/identity");
-            ViewBag.Json = JArray.Parse(content).ToString();
-
             return View();
         }
 

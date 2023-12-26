@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace OrionEShopOnContainer.Webs.WebMVC.Controllers;
+
 public class CatalogController : Controller
 {
     public IActionResult Index()

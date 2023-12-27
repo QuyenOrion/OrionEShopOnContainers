@@ -1,9 +1,10 @@
-﻿global using Microsoft.AspNetCore.Authorization;
-global using Microsoft.AspNetCore.Mvc;
-global using OrionEShopOnContainers.Services.Basket.API.Models;
+﻿global using Grpc.Core;
 global using GrpcBasket;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using OrionEShopOnContainers.Services.Basket.API;
+global using OrionEShopOnContainers.Services.Basket.API.Models;
 global using OrionEShopOnContainers.Services.Basket.API.Repositories;
-global using Grpc.Core;
 global using OrionEShopOnContainers.Services.Service.Common;
 global using StackExchange.Redis;
 global using System.Text.Json;

@@ -41,7 +41,7 @@ public class BasketService : Basket.BasketBase
         if (response != null)
             return MapToCustomerBasketResponse(basket);
 
-        context.Status = new Status(StatusCode.NotFound, $"Basket with buyer id {request.Buyerid} do not exist");
+        context.Status = new Status(StatusCode.Internal, $"Basket with buyer id {request.Buyerid} can not save");
 
         return new CustomerBasketResponse { Buyerid = request.Buyerid };
     }

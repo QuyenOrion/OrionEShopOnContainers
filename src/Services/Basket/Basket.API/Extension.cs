@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace Basket.API
+namespace OrionEShopOnContainers.Services.Basket.API
 {
     public static class Extension
     {

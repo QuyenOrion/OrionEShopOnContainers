@@ -24,7 +24,7 @@ public class CatalogService : CatalogBase
         if (request.Id <= 0)
         {
             context.Status = new Status(StatusCode.FailedPrecondition, $"Id must be > 0 (received {request.Id})");
-            return null;
+            return GenerateDefaultCatalogItemResponse();
         }
 
         var catalog = await _catalogContext.CatalogItems.Include(c => c.CatalogType).Include(c => c.CatalogBrand).FirstOrDefaultAsync(item => item.Id == request.Id);
@@ -60,6 +60,25 @@ public class CatalogService : CatalogBase
 
         context.Status = new Status(StatusCode.NotFound, $"Item with id {request.Id} do not exist");
 
-        return null;
+        return GenerateDefaultCatalogItemResponse();
+    }
+
+    private static CatalogItemResponse GenerateDefaultCatalogItemResponse()
+    {
+        return new CatalogItemResponse
+        {
+            Description = string.Empty,
+            Name = string.Empty,
+            PictureFileName = string.Empty,
+            PictureUri = string.Empty,
+            CatalogBrand = new CatalogApi.CatalogBrand
+            {
+                Name = string.Empty
+            },
+            CatalogType = new CatalogApi.CatalogType
+            {
+                Type = string.Empty
+            }
+        };
     }
 }

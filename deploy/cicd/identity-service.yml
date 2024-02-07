@@ -1,0 +1,51 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/Services/Identity/Identity.API/*
+
+resources:
+  - repo: self
+
+variables:
+  tag: "$(Build.BuildId)"
+  DockerImageName: "eshop-identity-service"
+  DockerRepository: "quyenorion"
+  DockerHubServiceConnection: "my-docker-hub"
+
+  # Agent VM image name
+  vmImageName: "ubuntu-latest"
+
+stages:
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: "$(DockerHubServiceConnection)"
+              repository: "$(DockerRepository)/$(DockerImageName)"
+              command: "buildAndPush"
+              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile"
+          # - task: CmdLine@1
+          #   displayName: "Lock image version in k8s/server-deployment.yml"
+          #   inputs:
+          #     filename: /bin/bash
+          #     arguments: '-c "awk ''{gsub(\"MULTI_SERVER_IMAGE\", \"$(DockerRepository)/$(DockerImageName):$(tag)\", $0); print}'' $(Build.SourcesDirectory)/k8s/server-deployment.yml > $(Build.SourcesDirectory)/k8s-release/server-deployment.yml"'
+          # - task: Kubernetes@1
+          #   displayName: kubectl apply k8s-release
+          #   inputs:
+          #     connectionType: Kubernetes Service Connection
+          #     kubernetesServiceEndpoint: gke-multi-cluster
+          #     command: "apply"
+          #     arguments: "-f $(Build.SourcesDirectory)/k8s-release/server-deployment.yml"

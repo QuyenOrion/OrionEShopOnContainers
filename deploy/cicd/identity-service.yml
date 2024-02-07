@@ -36,7 +36,7 @@ stages:
               containerRegistry: "$(DockerHubServiceConnection)"
               repository: "$(DockerRepository)/$(DockerImageName)"
               command: "buildAndPush"
-              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile"
+              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
           # - task: CmdLine@1
           #   displayName: "Lock image version in k8s/server-deployment.yml"
           #   inputs:

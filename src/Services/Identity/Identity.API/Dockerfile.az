@@ -7,10 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["/src/Services/Identity/Identity.API/Identity.API.csproj", "Services/Identity/Identity.API/"]
-RUN dotnet restore "Services/Identity/Identity.API/Identity.API.csproj"
-COPY ["/src/Services/Identity/Identity.API/", "Services/Identity/Identity.API/"]
-WORKDIR "/src/Services/Identity/Identity.API"
+COPY ./Identity.API.csproj ./
+RUN dotnet restore Identity.API.csproj
+COPY . .
 RUN dotnet build "Identity.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

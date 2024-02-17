@@ -36,7 +36,7 @@ stages:
               containerRegistry: "$(DockerHubServiceConnection)"
               repository: "$(DockerRepository)/$(DockerImageName)"
               command: "buildAndPush"
-              Dockerfile: "/src/Services/Identity/Identity.API/Dockerfile.az"
+              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Kubernetes Service Connection'

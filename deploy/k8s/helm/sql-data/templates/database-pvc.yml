@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.dbPVC.name }}
+spec:
+  accessModes:
+    - {{ .Values.dbPVC.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.dbPVC.size }}

@@ -36,7 +36,15 @@ stages:
               containerRegistry: "$(DockerHubServiceConnection)"
               repository: "$(DockerRepository)/$(DockerImageName)"
               command: "buildAndPush"
-              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
+              Dockerfile: "/src/Services/Identity/Identity.API/Dockerfile.az"
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'gke-multi-cluster'
+              command: 'install'
+              chartType: 'FilePath'
+              chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
+              releaseName: 'eshop'
           # - task: CmdLine@1
           #   displayName: "Lock image version in k8s/server-deployment.yml"
           #   inputs:
@@ -49,3 +57,4 @@ stages:
           #     kubernetesServiceEndpoint: gke-multi-cluster
           #     command: "apply"
           #     arguments: "-f $(Build.SourcesDirectory)/k8s-release/server-deployment.yml"
+

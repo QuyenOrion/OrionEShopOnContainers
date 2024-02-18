@@ -7,6 +7,9 @@ trigger:
   branches:
     include:
       - main
+  paths:
+    include:
+      - deploy/k8s/helm/sql-data/Chart.yaml
 
 resources:
   - repo: self

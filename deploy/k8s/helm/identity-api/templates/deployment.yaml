@@ -37,6 +37,20 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: AppSettings__ConnectionStrings__Default
+              value: null
+            - name: AppSettings__ConnectionStrings__PostgresHost
+              value: "sql-data"
+            - name: AppSettings__ConnectionStrings__PostgresDb
+              value: "IdentityDb"
+            - name: AppSettings__ConnectionStrings__PostgresUser
+              value: "postgres"
+            - name: AppSettings__ConnectionStrings__PostgresPassword
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
           livenessProbe:
             httpGet:
               path: /

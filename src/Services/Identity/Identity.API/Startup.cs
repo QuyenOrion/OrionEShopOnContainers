@@ -46,6 +46,15 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
             string connectionString = Configuration.GetConnectionString("Default");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                var host = Configuration.GetConnectionString("PostgresHost");
+                var database = Configuration.GetConnectionString("PostgresDb");
+                var username = Configuration.GetConnectionString("PostgresUser");
+                var password = Configuration.GetConnectionString("PostgresPassword");
+                var options = Configuration.GetConnectionString("PostgresOptions");
+                connectionString = $"Host={host};Database={database};Username={username};Password={password};{options}";
+            }
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html

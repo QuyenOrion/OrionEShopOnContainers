@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 var username = Configuration.GetConnectionString("PostgresUser");
                 var password = Configuration.GetConnectionString("PostgresPassword");
                 var options = Configuration.GetConnectionString("PostgresOptions");
-                Console.WriteLine($"Host={host};Database={database};Username={username};Password={password};{options}");
+                Log.Information($"Host={host};Database={database};Username={username};Password={password};{options}");
                 connectionString = $"Host={host};Database={database};Username={username};Password={password};{options}";
             }
             var builder = services.AddIdentityServer(options =>

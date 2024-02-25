@@ -48,17 +48,15 @@ namespace OrionEShopOnContainer.Services.Identity.API
 
             string connectionString = Configuration.GetConnectionString("Default");
             Log.Information($"Connection string: {connectionString}");
-            Log.Information($"PostgresHost: {System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresHost")}");
-            Log.Information($"Default: {System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__Default")}");
-            if (string.IsNullOrEmpty(connectionString))
+            var postgresHost = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresHost");
+            if (!string.IsNullOrEmpty(postgresHost))
             {
-                var host = Configuration.GetConnectionString("PostgresHost");
-                var database = Configuration.GetConnectionString("PostgresDb");
-                var username = Configuration.GetConnectionString("PostgresUser");
-                var password = Configuration.GetConnectionString("PostgresPassword");
-                var options = Configuration.GetConnectionString("PostgresOptions");
-                Log.Information($"Host={host};Database={database};Username={username};Password={password};{options}");
-                connectionString = $"Host={host};Database={database};Username={username};Password={password};{options}";
+                var database = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresDb");
+                var username = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresUser");
+                var password = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresPassword");
+                var options = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresOptions");
+                Log.Information($"Host={postgresHost};Database={database};Username={username};Password={password};{options}");
+                connectionString = $"Host={postgresHost};Database={database};Username={username};Password={password};{options}";
             }
             var builder = services.AddIdentityServer(options =>
             {

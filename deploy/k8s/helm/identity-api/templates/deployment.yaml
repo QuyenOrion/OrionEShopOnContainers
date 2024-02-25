@@ -39,9 +39,9 @@ spec:
               protocol: TCP
           env:
             - name: AppSettings__ConnectionStrings__Default
-              value: null
+              value: ""
             - name: AppSettings__ConnectionStrings__PostgresHost
-              value: "sql-data"
+              value: eshop-a-sql-data
             - name: AppSettings__ConnectionStrings__PostgresDb
               value: "IdentityDb"
             - name: AppSettings__ConnectionStrings__PostgresUser

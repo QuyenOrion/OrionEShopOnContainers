@@ -1,3 +1,6 @@
+{{- $name := include "identity-api.fullname" . -}}
+{{- $cfgname := printf "%s-%s" "cfg" $name -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,8 +43,6 @@ spec:
           env:
             - name: AppSettings__ConnectionStrings__Default
               value: ""
-            - name: AppSettings__ConnectionStrings__PostgresHost
-              value: eshop-a-sql-data
             - name: AppSettings__ConnectionStrings__PostgresDb
               value: "IdentityDb"
             - name: AppSettings__ConnectionStrings__PostgresUser
@@ -51,6 +52,15 @@ spec:
                 secretKeyRef:
                   name: pgpassword
                   key: PGPASSWORD
+          {{- if .Values.env.configmap }}
+          {{- range .Values.env.configmap }}
+            - name: {{ .name }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $cfgname }}
+                  key: {{ .key }}
+          {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /

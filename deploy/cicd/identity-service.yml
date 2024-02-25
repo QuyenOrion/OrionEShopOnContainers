@@ -44,7 +44,7 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
-              releaseName: 'eshop'
+              releaseName: 'eshop-b'
           # - task: CmdLine@1
           #   displayName: "Lock image version in k8s/server-deployment.yml"
           #   inputs:

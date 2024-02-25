@@ -47,6 +47,9 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
             string connectionString = Configuration.GetConnectionString("Default");
+            Log.Information($"Connection string: {connectionString}");
+            Log.Information($"PostgresHost: {System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresHost")}");
+            Log.Information($"Default: {System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__Default")}");
             if (string.IsNullOrEmpty(connectionString))
             {
                 var host = Configuration.GetConnectionString("PostgresHost");

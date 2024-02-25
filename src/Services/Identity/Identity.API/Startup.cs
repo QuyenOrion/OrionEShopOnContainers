@@ -82,14 +82,14 @@ namespace OrionEShopOnContainer.Services.Identity.API
                                     sql => sql.MigrationsAssembly(typeof(Startup).Assembly.FullName));
                 });
 
-            services.AddAuthentication()
-                .AddGoogle("Google", options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            //services.AddAuthentication()
+            //    .AddGoogle("Google", options =>
+            //    {
+            //        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                    options.ClientId = Configuration.GetValue<string>("GoogleOAuth:ClientId");
-                    options.ClientSecret = Configuration.GetValue<string>("GoogleOAuth:ClientSecret");
-                });
+            //        options.ClientId = Configuration.GetValue<string>("GoogleOAuth:ClientId");
+            //        options.ClientSecret = Configuration.GetValue<string>("GoogleOAuth:ClientSecret");
+            //    });
 
             // not recommended for production - you need to store your key material somewhere secure
             if (Environment.IsDevelopment())

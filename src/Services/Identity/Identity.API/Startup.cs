@@ -53,6 +53,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 var username = Configuration.GetConnectionString("PostgresUser");
                 var password = Configuration.GetConnectionString("PostgresPassword");
                 var options = Configuration.GetConnectionString("PostgresOptions");
+                Console.WriteLine($"Host={host};Database={database};Username={username};Password={password};{options}");
                 connectionString = $"Host={host};Database={database};Username={username};Password={password};{options}";
             }
             var builder = services.AddIdentityServer(options =>

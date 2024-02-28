@@ -1,0 +1,16 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Kubernetes@1
+    displayName: kubectl apply issuer
+    inputs:
+      connectionType: Kubernetes Service Connection
+      kubernetesServiceEndpoint: gke-multi-cluster
+      command: 'apply'
+      arguments: '-f $(Build.SourcesDirectory)/deploy/k8s/issuer.yml'

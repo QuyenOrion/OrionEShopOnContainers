@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: orionproshop-store-tls
+spec:
+  secretName: orionproshop-store
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: orionproshop.store
+  dnsNames:
+    - orionproshop.store
+    - www.orionproshop.store

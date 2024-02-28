@@ -14,3 +14,10 @@ steps:
       kubernetesServiceEndpoint: gke-multi-cluster
       command: 'apply'
       arguments: '-f $(Build.SourcesDirectory)/deploy/k8s/issuer.yml'
+  - task: Kubernetes@1
+    displayName: kubectl apply certificate
+    inputs:
+      connectionType: Kubernetes Service Connection
+      kubernetesServiceEndpoint: gke-multi-cluster
+      command: 'apply'
+      arguments: '-f $(Build.SourcesDirectory)/deploy/k8s/certificate.yml'

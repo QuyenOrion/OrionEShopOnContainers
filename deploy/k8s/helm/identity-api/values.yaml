@@ -55,11 +55,11 @@ ingress:
   hosts:
     - host: orionproshop.store
       paths:
-        - path: /identity/?(.*)
+        - path: /?(.*)
           pathType: ImplementationSpecific
     - host: www.orionproshop.store
       paths:
-        - path: /identity/?(.*)
+        - path: /?(.*)
           pathType: ImplementationSpecific
   tls: 
     - hosts:

@@ -1,4 +1,4 @@
-gcloud shell on browser:
+gcloud shell on browser and local:
 - gcloud config set project multi-k8s-410921
 - gcloud config set compute/zone asia-southeast1-a
 - gcloud container clusters get-credentials multi-cluster

@@ -1,0 +1,56 @@
+gcloud shell on browser:
+- gcloud config set project multi-k8s-410921
+- gcloud config set compute/zone asia-southeast1-a
+- gcloud container clusters get-credentials multi-cluster
+- kubectl create secret generic pgpassword --from-literal PGPASSWORD=123456
+
+install Helm:
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+
+install ingress-nginx:
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+
+verify ingress-nginx:
+kubectl get service ingress-nginx-controller --namespace=ingress-nginx
+
+install Cert Manager:
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.8.0 \
+  --set installCRDs=true
+
+show challenge:
+kubectl describe challenge
+
+kubectl command:
+kubectl logs deployment/server-deployment
+kubectl get pods
+kubectl exec --stdin --tty server-deployment-... -- /bin/bash
+
+#######################################################
+install plug-in for gcloud and kubectl on local:
+gcloud components install gke-gcloud-auth-plugin
+gke-gcloud-auth-plugin --version # verify
+kubectl get namespaces # verify
+kubectl config get-contexts 
+
+Azure CD:
+35.185.181.42 # external ip of multi-cluster-dev
+34.142.236.60 # external ip of multi-cluster
+
+Service Connection for Azure:
+gcloud container clusters get-credentials multi-cluster
+kubectl create serviceaccount azure-pipelines-deploy
+kubectl create secret generic azure-pipelines-deploy-token --type=kubernetes.io/service-account-token --dry-run -o yaml \
+  | kubectl annotate --local -o yaml -f - kubernetes.io/service-account.name=azure-pipelines-deploy \
+  | kubectl apply -f -
+kubectl create clusterrolebinding azure-pipelines-deploy --clusterrole=cluster-admin --serviceaccount=default:azure-pipelines-deploy
+kubectl get secret azure-pipelines-deploy-token -o yaml #paste token to Azure DevOps Secret Box for Service Connection

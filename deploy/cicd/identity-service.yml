@@ -19,6 +19,7 @@ variables:
   DockerImageName: "eshop-identity-service"
   DockerRepository: "quyenorion"
   DockerHubServiceConnection: "my-docker-hub"
+  releaseName: "eshop-bb"
 
   # Agent VM image name
   vmImageName: "ubuntu-latest"
@@ -45,17 +46,5 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
-              releaseName: 'eshop-b'
-          # - task: CmdLine@1
-          #   displayName: "Lock image version in k8s/server-deployment.yml"
-          #   inputs:
-          #     filename: /bin/bash
-          #     arguments: '-c "awk ''{gsub(\"MULTI_SERVER_IMAGE\", \"$(DockerRepository)/$(DockerImageName):$(tag)\", $0); print}'' $(Build.SourcesDirectory)/k8s/server-deployment.yml > $(Build.SourcesDirectory)/k8s-release/server-deployment.yml"'
-          # - task: Kubernetes@1
-          #   displayName: kubectl apply k8s-release
-          #   inputs:
-          #     connectionType: Kubernetes Service Connection
-          #     kubernetesServiceEndpoint: gke-multi-cluster
-          #     command: "apply"
-          #     arguments: "-f $(Build.SourcesDirectory)/k8s-release/server-deployment.yml"
+              releaseName: '$(releaseName)'
 

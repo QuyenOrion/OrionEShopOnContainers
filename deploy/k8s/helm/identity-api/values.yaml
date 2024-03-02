@@ -55,18 +55,10 @@ ingress:
       paths:
         - path: /?(.*)
           pathType: ImplementationSpecific
-    - host: www.orionproshop.store
-      paths:
-        - path: /?(.*)
-          pathType: ImplementationSpecific
   tls: 
     - hosts:
       - identity.orionproshop.store
-      - www.orionproshop.store
       secretName: orionproshop-store
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources:
   {}

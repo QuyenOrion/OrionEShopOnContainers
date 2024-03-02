@@ -1,4 +1,5 @@
 {{ $name := include "identity-api.fullname" . }}
+{{ $sql := include "sql-name" .}}
 
 apiVersion: v1
 kind: ConfigMap
@@ -10,4 +11,4 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  identity__ConnectionString__PostgresHost: eshop-a-sql-data
+  identity__ConnectionString__PostgresHost: {{- $sql }}

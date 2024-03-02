@@ -46,5 +46,6 @@ stages:
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
+              valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
               releaseName: '$(releaseName)'
 

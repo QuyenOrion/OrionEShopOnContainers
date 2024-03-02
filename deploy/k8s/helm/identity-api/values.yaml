@@ -44,26 +44,24 @@ service:
 
 ingress:
   enabled: true
-  className: ""
+  className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     cert-manager.io/cluster-issuer: "letsencrypt-prod" #production
     nginx.ingress.kubernetes.io/ssl-redirect: "true" #production
-    kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: orionproshop.store
+    - host: identity.orionproshop.store
       paths:
-        - path: /identity/?(.*)
+        - path: /?(.*)
           pathType: ImplementationSpecific
     - host: www.orionproshop.store
       paths:
-        - path: /identity/?(.*)
+        - path: /?(.*)
           pathType: ImplementationSpecific
   tls: 
     - hosts:
-      - orionproshop.store
+      - identity.orionproshop.store
       - www.orionproshop.store
       secretName: orionproshop-store
   #  - secretName: chart-example-tls

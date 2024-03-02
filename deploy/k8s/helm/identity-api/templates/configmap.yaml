@@ -11,4 +11,4 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  identity__ConnectionString__PostgresHost: {{- $sql }}
+  identity__ConnectionString__PostgresHost: {{ $sql }}

@@ -41,13 +41,7 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            - name: AppSettings__ConnectionStrings__Default
-              value: ""
-            - name: AppSettings__ConnectionStrings__PostgresDb
-              value: "IdentityDb"
-            - name: AppSettings__ConnectionStrings__PostgresUser
-              value: "postgres"
-            - name: AppSettings__ConnectionStrings__PostgresPassword
+            - name: ConnectionStrings__PostgresPassword
               valueFrom:
                 secretKeyRef:
                   name: pgpassword

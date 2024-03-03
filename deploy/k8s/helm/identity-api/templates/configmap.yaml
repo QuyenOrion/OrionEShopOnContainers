@@ -11,4 +11,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  identity__ConnectionString__PostgresHost: {{ $sql }}
+  identity__ConnectionStrings__PostgresHost: {{ $sql }}
+  identity__ConnectionStrings__Default: ""
+  identity__ConnectionStrings__PostgresDb: {{ .Values.info.sql.identity.db }}
+  identity__ConnectionStrings__PostgresUser: {{ .Values.info.sql.identity.user }}

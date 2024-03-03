@@ -8,7 +8,7 @@ image:
   repository: quyenorion/eshop-identity-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "58"
+  tag: "78"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -88,5 +88,11 @@ affinity: {}
 
 env:
   configmap:
-    - name: AppSettings__ConnectionStrings__PostgresHost
-      key: identity__ConnectionString__PostgresHost
+    - name: ConnectionStrings__PostgresHost
+      key: identity__ConnectionStrings__PostgresHost
+    - name: ConnectionStrings__Default
+      key: identity__ConnectionStrings__Default
+    - name: ConnectionStrings__PostgresDb
+      key: identity__ConnectionStrings__PostgresDb
+    - name: ConnectionStrings__PostgresUser
+      key: identity__ConnectionStrings__PostgresUser

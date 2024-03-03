@@ -47,15 +47,13 @@ namespace OrionEShopOnContainer.Services.Identity.API
                 services.AddTransient<IDiscoveryResponseGenerator, CustomDiscoveryResponseGenerator>();
 
             string connectionString = Configuration.GetConnectionString("Default");
-            Log.Information($"Connection string: {connectionString}");
-            var postgresHost = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresHost");
-            if (!string.IsNullOrEmpty(postgresHost))
+            if (string.IsNullOrEmpty(connectionString))
             {
-                var database = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresDb");
-                var username = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresUser");
-                var password = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresPassword");
-                var options = System.Environment.GetEnvironmentVariable("AppSettings__ConnectionStrings__PostgresOptions");
-                Log.Information($"Host={postgresHost};Database={database};Username={username};Password={password};{options}");
+                var postgresHost = Configuration.GetConnectionString("PostgresHost");
+                var database = Configuration.GetConnectionString("PostgresDb");
+                var username = Configuration.GetConnectionString("PostgresUser");
+                var password = Configuration.GetConnectionString("PostgresPassword");
+                var options = Configuration.GetConnectionString("PostgresOptions");
                 connectionString = $"Host={postgresHost};Database={database};Username={username};Password={password};{options}";
             }
             var builder = services.AddIdentityServer(options =>

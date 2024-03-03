@@ -1,3 +1,7 @@
 info:
   sql:
     host: postgres-server
+    identity:
+      db: IdentityDb
+      user: postgres
+      options: ""

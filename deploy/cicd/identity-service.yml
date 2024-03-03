@@ -19,33 +19,29 @@ variables:
   DockerImageName: "eshop-identity-service"
   DockerRepository: "quyenorion"
   DockerHubServiceConnection: "my-docker-hub"
-  releaseName: "eshop-bb"
+  releaseName: "eshop-b"
 
   # Agent VM image name
   vmImageName: "ubuntu-latest"
 
-stages:
-  - stage: Build
-    displayName: Build and push stage
-    jobs:
-      - job: Build
-        displayName: Build
-        pool:
-          vmImage: $(vmImageName)
-        steps:
-          - task: Docker@2
-            inputs:
-              containerRegistry: "$(DockerHubServiceConnection)"
-              repository: "$(DockerRepository)/$(DockerImageName)"
-              command: "buildAndPush"
-              Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
-          - task: HelmDeploy@0
-            inputs:
-              connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceConnection: 'gke-multi-cluster'
-              command: 'upgrade'
-              chartType: 'FilePath'
-              chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
-              valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
-              releaseName: '$(releaseName)'
+pool:
+  vmImage: $(vmImageName)
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: "$(DockerHubServiceConnection)"
+    repository: "$(DockerRepository)/$(DockerImageName)"
+    command: "buildAndPush"
+    tags: "$(tag)"
+    Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: 'gke-multi-cluster'
+    command: 'upgrade'
+    chartType: 'FilePath'
+    chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/identity-api'
+    valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
+    arguments: '--set-string image.tag=$(tag)'
+    releaseName: '$(releaseName)'
 

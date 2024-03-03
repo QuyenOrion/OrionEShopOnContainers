@@ -19,7 +19,7 @@ variables:
   DockerImageName: "eshop-identity-service"
   DockerRepository: "quyenorion"
   DockerHubServiceConnection: "my-docker-hub"
-  releaseName: "eshop-b"
+  releaseName: "eshop-bb"
 
   # Agent VM image name
   vmImageName: "ubuntu-latest"

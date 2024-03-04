@@ -33,7 +33,8 @@ steps:
     repository: "$(DockerRepository)/$(DockerImageName)"
     command: "buildAndPush"
     tags: "$(tag)"
-    Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile.az"
+    buildContext: "$(Build.SourcesDirectory)/src" 
+    Dockerfile: "$(Build.SourcesDirectory)/src/Services/Identity/Identity.API/Dockerfile"
 - task: HelmDeploy@0
   inputs:
     connectionType: 'Kubernetes Service Connection'

@@ -17,21 +17,13 @@ resources:
 variables:
   vmImageName: ubuntu-latest
 
-stages:
-  - stage: Build
-    displayName: Build and push stage
-    jobs:
-      - job: Build
-        displayName: Build
-        pool:
-          vmImage: $(vmImageName)
-        steps:
-        - task: HelmDeploy@0
-          inputs:
-            connectionType: 'Kubernetes Service Connection'
-            kubernetesServiceConnection: 'gke-multi-cluster'
-            command: 'upgrade'
-            chartType: 'FilePath'
-            chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/sql-data'
-            valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
-            releaseName: 'eshop-a'
+steps:
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: 'gke-multi-cluster'
+    command: 'upgrade'
+    chartType: 'FilePath'
+    chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/sql-data'
+    valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
+    releaseName: 'eshop-a'

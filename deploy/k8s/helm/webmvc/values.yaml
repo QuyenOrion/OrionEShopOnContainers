@@ -1,14 +1,14 @@
-# Default values for identity-api.
+# Default values for webmvc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: quyenorion/eshop-identity-service
+  repository: quyenorion/eshop-webmvc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "78"
+  tag: "1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -25,12 +25,10 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -45,23 +43,22 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations:
+  annotations: 
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - host: identity.orionproshop.store
+    - host: www.orionproshop.store
       paths:
         - path: /?(.*)
           pathType: ImplementationSpecific
   tls: 
     - hosts:
-      - identity.orionproshop.store
+      - www.orionproshop.store
       secretName: orionproshop-store
 
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -85,14 +82,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-env:
-  configmap:
-    - name: ConnectionStrings__PostgresHost
-      key: identity__ConnectionStrings__PostgresHost
-    - name: ConnectionStrings__Default
-      key: identity__ConnectionStrings__Default
-    - name: ConnectionStrings__PostgresDb
-      key: identity__ConnectionStrings__PostgresDb
-    - name: ConnectionStrings__PostgresUser
-      key: identity__ConnectionStrings__PostgresUser

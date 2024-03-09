@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: quyenorion/eshop-basket-api
+  repository: quyenorion/eshop-basket-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1"

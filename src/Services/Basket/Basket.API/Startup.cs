@@ -49,6 +49,8 @@ namespace OrionEShopOnContainers.Services.Basket.API
 
             app.UseHttpsRedirection();
 
+            app.UseRouting();
+
             app.UseAuthorization();
             app.UseAuthorization();
 

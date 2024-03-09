@@ -20,8 +20,8 @@ variables:
   DockerRepository: "quyenorion"
   DockerHubServiceConnection: "my-docker-hub"
   releaseName: "eshop-e"
-  DockerFilePath: "src/Services/Identity/Identity.API/Dockerfile"
-  ChartPath: "identity-api"
+  DockerFilePath: "src/Services/Basket/Basket.API/Dockerfile"
+  ChartPath: "basket-api"
 
   # Agent VM image name
   vmImageName: "ubuntu-latest"

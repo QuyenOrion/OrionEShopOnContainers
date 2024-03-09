@@ -5,3 +5,5 @@ info:
       db: IdentityDb
       user: postgres
       options: ""
+  redis:
+    host: redis-server

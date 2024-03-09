@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "basket-data.fullname" . }}
+  name: {{ include "redis-name" . }}
   labels:
     {{- include "basket-data.labels" . | nindent 4 }}
 spec:

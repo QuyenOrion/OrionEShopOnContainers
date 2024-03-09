@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Basket/OrionEShopOnContainers.Services.Basket.API/OrionEShopOnContainers.Services.Basket.API.csproj", "Services/Basket/OrionEShopOnContainers.Services.Basket.API/"]
-RUN dotnet restore "./Services/Basket/OrionEShopOnContainers.Services.Basket.API/./OrionEShopOnContainers.Services.Basket.API.csproj"
+COPY ["Services/Basket/Basket.API/Basket.API.csproj", "Services/Basket/Basket.API/"]
+RUN dotnet restore "./Services/Basket/Basket.API/./Basket.API.csproj"
 COPY . .
-WORKDIR "/src/Services/Basket/OrionEShopOnContainers.Services.Basket.API"
-RUN dotnet build "./OrionEShopOnContainers.Services.Basket.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Services/Basket/Basket.API"
+RUN dotnet build "./Basket.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./OrionEShopOnContainers.Services.Basket.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Basket.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OrionEShopOnContainers.Services.Basket.API.dll"]
+ENTRYPOINT ["dotnet", "Basket.API.dll"]

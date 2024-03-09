@@ -25,4 +25,5 @@ steps:
     command: 'upgrade'
     chartType: 'FilePath'
     chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/basket-data'
+    valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
     releaseName: 'eshop-d'

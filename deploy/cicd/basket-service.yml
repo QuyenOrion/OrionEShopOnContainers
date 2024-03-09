@@ -20,7 +20,7 @@ variables:
   DockerRepository: "quyenorion"
   DockerHubServiceConnection: "my-docker-hub"
   releaseName: "eshop-e"
-  DockerFilePath: "./Services/Identity/Identity.API/Dockerfile"
+  DockerFilePath: "src/Services/Identity/Identity.API/Dockerfile"
   ChartPath: "identity-api"
 
   # Agent VM image name
@@ -36,7 +36,7 @@ steps:
     command: "buildAndPush"
     tags: "$(tag)"
     buildContext: "$(Build.SourcesDirectory)/src" 
-    Dockerfile: "$(DockerFilePath)"
+    Dockerfile: "$(Build.SourcesDirectory)/$(DockerFilePath)"
 - task: HelmDeploy@0
   inputs:
     connectionType: 'Kubernetes Service Connection'

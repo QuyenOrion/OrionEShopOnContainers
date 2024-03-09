@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: quyenorion/eshop-catalog-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -39,6 +39,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  grpcPort: 81
 
 ingress:
   enabled: false
@@ -80,3 +81,14 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+env:
+  configMap:
+    - name: ConnectionStrings__PostgresHost
+      key: catalog__ConnectionStrings__PostgresHost
+    - name: ConnectionStrings__Default
+      key: catalog__ConnectionStrings__Default
+    - name: ConnectionStrings__PostgresDb
+      key: catalog__ConnectionStrings__PostgresDb
+    - name: ConnectionStrings__PostgresUser
+      key: catalog__ConnectionStrings__PostgresUser

@@ -1,0 +1,16 @@
+{{- $sql := include "sql-name" . }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ include "catalog-api.name" . }}"
+  labels:
+    app: {{ include "catalog-api.name" . }}
+    chart: {{ include "catalog-api.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  catalog__ConnectionStrings__PostgresHost: {{ $sql }}
+  catalog__ConnectionStrings__Default: ""
+  catalog__ConnectionStrings__PostgresDb: {{ .Values.info.sql.catalog.db }}
+  catalog__ConnectionStrings__PostgresUser: {{ .Values.info.sql.catalog.user }}

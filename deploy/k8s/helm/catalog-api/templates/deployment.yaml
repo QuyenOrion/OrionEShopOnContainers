@@ -1,3 +1,6 @@
+{{- $name := include "catalog-api.fullname" . -}}
+{{- $cfgname := printf "%s-%s" "cfg" $name -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,8 +38,32 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 80
               protocol: TCP
+            - name: grpc
+              containerPort: 81
+              protocol: TCP
+          env:
+            - name: Kestrel__Endpoints__HTTP__Url
+              value: http://0.0.0.0:80
+            - name: Kestrel__Endpoints__GRPC__Url
+              value: http://0.0.0.0:81
+            - name: Kestrel__Endpoints__GRPC__Protocols
+              value: Http2
+            - name: ConnectionStrings__PostgresPassword
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
+          {{- if .Values.env.configmap }}
+          {{- range .Values.env.configmap }}
+            - name: {{ .name }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $cfgname }}
+                  key: {{ .key }}
+          {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /

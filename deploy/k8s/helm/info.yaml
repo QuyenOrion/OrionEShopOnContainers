@@ -5,5 +5,9 @@ info:
       db: IdentityDb
       user: postgres
       options: ""
+    catalog:
+      db: CatalogDb
+      user: postgres
+      options: ""
   redis:
     host: redis-server

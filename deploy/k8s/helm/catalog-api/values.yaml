@@ -86,8 +86,8 @@ env:
   configMap:
     - name: ConnectionStrings__PostgresHost
       key: catalog__ConnectionStrings__PostgresHost
-    - name: ConnectionStrings__Default
-      key: catalog__ConnectionStrings__Default
+    - name: ConnectionStrings__CatalogDb
+      key: catalog__ConnectionStrings__CatalogDb
     - name: ConnectionStrings__PostgresDb
       key: catalog__ConnectionStrings__PostgresDb
     - name: ConnectionStrings__PostgresUser

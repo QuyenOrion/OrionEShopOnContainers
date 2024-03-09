@@ -11,6 +11,6 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   catalog__ConnectionStrings__PostgresHost: {{ $sql }}
-  catalog__ConnectionStrings__Default: ""
+  catalog__ConnectionStrings__CatalogDb: ""
   catalog__ConnectionStrings__PostgresDb: {{ .Values.info.sql.catalog.db }}
   catalog__ConnectionStrings__PostgresUser: {{ .Values.info.sql.catalog.user }}

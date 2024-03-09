@@ -14,7 +14,7 @@ public static class Extensions
             sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorCodesToAdd: null);
         }
 
-        string connectionString = configuration.GetConnectionString("Default");
+        string? connectionString = configuration.GetConnectionString("CatalogDb");
         if (string.IsNullOrEmpty(connectionString))
         {
             var postgresHost = configuration.GetConnectionString("PostgresHost");
@@ -27,7 +27,7 @@ public static class Extensions
 
         services.AddDbContext<CatalogContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("CatalogDb"), ConfigurationOptions);
+            options.UseNpgsql(connectionString, ConfigurationOptions);
         });
 
         return services;

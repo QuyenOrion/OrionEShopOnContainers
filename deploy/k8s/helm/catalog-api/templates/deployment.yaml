@@ -1,4 +1,4 @@
-{{- $name := include "catalog-api.fullname" . -}}
+{{- $name := include "catalog-api.name" . -}}
 {{- $cfgname := printf "%s-%s" "cfg" $name -}}
 
 apiVersion: apps/v1
@@ -55,8 +55,8 @@ spec:
                 secretKeyRef:
                   name: pgpassword
                   key: PGPASSWORD
-          {{- if .Values.env.configmap }}
-          {{- range .Values.env.configmap }}
+          {{- if .Values.env.configMap }}
+          {{- range .Values.env.configMap }}
             - name: {{ .name }}
               valueFrom:
                 configMapKeyRef:

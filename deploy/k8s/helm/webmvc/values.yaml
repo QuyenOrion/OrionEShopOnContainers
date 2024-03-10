@@ -82,3 +82,15 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+probe:
+  liveness:
+    path: /liveness
+    port: 80
+    initialDelaySeconds: 10
+    periodSeconds: 15
+  readiness:
+    path: /hc
+    port: 80
+    initialDelaySeconds: 10
+    periodSeconds: 15

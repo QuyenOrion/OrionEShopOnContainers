@@ -42,14 +42,24 @@ spec:
               value: "http://+:80;https://+:443"
             - name: IdentityUrl
               value: "https://identity.orionproshop.store"
+        {{- if .Values.probe }}
+        {{- if .Values.probe.liveness }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.probe.liveness.path }}
+              port: {{ .Values.probe.liveness.port }}
+            initialDelaySeconds: {{ .Values.probe.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probe.liveness.periodSeconds }}
+        {{- end }}
+        {{- if .Values.probe.readiness }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.probe.readiness.path }}
+              port: {{ .Values.probe.readiness.port }}
+            initialDelaySeconds: {{ .Values.probe.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probe.readiness.periodSeconds }}
+        {{- end }}
+        {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

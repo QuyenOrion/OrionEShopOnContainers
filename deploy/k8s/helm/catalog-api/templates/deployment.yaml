@@ -38,24 +38,24 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
             - name: grpc
-              containerPort: 81
+              containerPort: 8081
               protocol: TCP
           env:
             - name: Kestrel__Endpoints__HTTP__Url
-              value: "http://0.0.0.0:80"
+              value: "http://0.0.0.0:8080"
             - name: Kestrel__Endpoints__GRPC__Url
-              value: "http://0.0.0.0:81"
+              value: "http://0.0.0.0:8081"
             - name: Kestrel__Endpoints__GRPC__Protocols
               value: Http2
             - name: ASPNETCORE_URLS
-              value: "http://+:81;http://+:80"
+              value: "http://+:8081;http://+:8080"
             - name: PORT
-              value: "80"
+              value: "8080"
             - name: GRPC_PORT
-              value: "81"
+              value: "8081"
             - name: ConnectionStrings__PostgresPassword
               valueFrom:
                 secretKeyRef:

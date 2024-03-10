@@ -1,0 +1,50 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/Webs/WebMVC/*
+      - src/Services/Common/Service.Common/*
+      - deploy/k8s/helm/webmvc/Chart.yaml
+
+resources:
+  - repo: self
+
+variables:
+  tag: "$(Build.BuildId)"
+  DockerImageName: "eshop-webmvc"
+  DockerRepository: "quyenorion"
+  DockerHubServiceConnection: "my-docker-hub"
+  releaseName: "eshop-g"
+  DockerfilePath: "src/Webs/WebMVC/Dockerfile"
+
+  # Agent VM image name
+  vmImageName: "ubuntu-latest"
+
+pool:
+  vmImage: $(vmImageName)
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: "$(DockerHubServiceConnection)"
+    repository: "$(DockerRepository)/$(DockerImageName)"
+    command: "buildAndPush"
+    tags: "$(tag)"
+    buildContext: "$(Build.SourcesDirectory)/src" 
+    Dockerfile: "$(Build.SourcesDirectory)/$(DockerfilePath)"
+- task: HelmDeploy@0
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: 'gke-multi-cluster'
+    command: 'upgrade'
+    chartType: 'FilePath'
+    chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/webmvc'
+    valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
+    arguments: '--set-string image.tag=$(tag)'
+    releaseName: '$(releaseName)'
+

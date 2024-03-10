@@ -9,17 +9,17 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Webs/WebMVCNew/WebMVCNew.csproj", "Webs/WebMVCNew/"]
-RUN dotnet restore "./Webs/WebMVCNew/./WebMVCNew.csproj"
+COPY ["Webs/WebMVC/WebMVC.csproj", "Webs/WebMVC/"]
+RUN dotnet restore "./Webs/WebMVC/./WebMVC.csproj"
 COPY . .
-WORKDIR "/src/Webs/WebMVCNew"
-RUN dotnet build "./WebMVCNew.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Webs/WebMVC"
+RUN dotnet build "./WebMVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./WebMVCNew.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./WebMVC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebMVCNew.dll"]
+ENTRYPOINT ["dotnet", "WebMVC.dll"]

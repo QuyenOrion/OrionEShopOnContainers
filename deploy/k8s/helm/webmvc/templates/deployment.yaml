@@ -37,6 +37,11 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: "http://+:80;https://+:443"
+            - name: IdentityUrl
+              value: "https://identity.orionproshop.store"
           livenessProbe:
             httpGet:
               path: /

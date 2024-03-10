@@ -45,11 +45,17 @@ spec:
               protocol: TCP
           env:
             - name: Kestrel__Endpoints__HTTP__Url
-              value: http://0.0.0.0:80
+              value: "http://0.0.0.0:80"
             - name: Kestrel__Endpoints__GRPC__Url
-              value: http://0.0.0.0:81
+              value: "http://0.0.0.0:81"
             - name: Kestrel__Endpoints__GRPC__Protocols
               value: Http2
+            - name: ASPNETCORE_URLS
+              value: "http://+:81;http://+:80"
+            - name: PORT
+              value: "80"
+            - name: GRPC_PORT
+              value: "81"
             - name: ConnectionStrings__PostgresPassword
               valueFrom:
                 secretKeyRef:

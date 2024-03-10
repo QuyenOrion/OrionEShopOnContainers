@@ -70,14 +70,30 @@ spec:
                   key: {{ .key }}
           {{- end }}
           {{- end }}
+          {{- if .Values.probe }}
+          {{- if .Values.probe.liveness }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.probe.liveness.path }}
+              port: {{ .Values.probe.liveness.port }}
+            initialDelaySeconds: {{ .Values.probe.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probe.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probe.liveness.timeoutSeconds | default 1 }}
+            failureThreshold: {{ .Values.probe.liveness.failureThreshold | default 3 }}
+            successThreshold: {{ .Values.probe.liveness.successThreshold | default 1 }}
+          {{- end }}
+          {{- if .Values.probe.readiness }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.probe.readiness.path }}
+              port: {{ .Values.probe.readiness.port }}
+            initialDelaySeconds: {{ .Values.probe.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probe.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probe.readiness.timeoutSeconds | default 1 }}
+            failureThreshold: {{ .Values.probe.readiness.failureThreshold | default 3 }}
+            successThreshold: {{ .Values.probe.readiness.successThreshold | default 1 }}
+          {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

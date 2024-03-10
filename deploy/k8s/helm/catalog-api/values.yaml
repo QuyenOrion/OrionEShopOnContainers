@@ -82,6 +82,18 @@ tolerations: []
 
 affinity: {}
 
+probe:
+  liveness:
+    path: /liveness
+    port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 15
+  readiness:
+    path: /hc
+    port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 15
+
 env:
   configMap:
     - name: ConnectionStrings__PostgresHost

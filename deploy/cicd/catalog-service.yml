@@ -9,6 +9,7 @@ trigger:
   paths:
     include:
       - src/Services/Catalog/Catalog.API/*
+      - src/Services/Common/Service.Common/*
       - deploy/k8s/helm/catalog-api/Chart.yaml
 
 resources:

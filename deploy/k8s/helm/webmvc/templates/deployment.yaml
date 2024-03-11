@@ -38,6 +38,8 @@ spec:
               containerPort: 8080
               protocol: TCP
           env:
+            - name: ASPNETCORE_URLS
+              value: "http://+:8080"
             - name: IdentityUrl
               value: "https://identity.orionproshop.store"
         {{- if .Values.probe }}

@@ -1,7 +1,7 @@
 app:
   ingress:
     entries:
-      webmcv: www.orionproshop.store
+      webmvc: www.orionproshop.store
       identity: identity.orionproshop.store
   service:
     webmvc: webmvc

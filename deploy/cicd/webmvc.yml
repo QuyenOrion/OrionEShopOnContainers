@@ -45,6 +45,6 @@ steps:
     chartType: 'FilePath'
     chartPath: '$(Build.SourcesDirectory)/deploy/k8s/helm/webmvc'
     valueFile: '$(Build.SourcesDirectory)/deploy/k8s/helm/info.yaml'
-    arguments: '--set-string image.tag=$(tag)'
+    arguments: '--set-string image.tag=$(tag) -f $(Build.SourcesDirectory)/deploy/k8s/helm/app.yaml'
     releaseName: '$(releaseName)'
 

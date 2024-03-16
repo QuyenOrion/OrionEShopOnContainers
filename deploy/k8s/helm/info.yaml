@@ -11,3 +11,6 @@ info:
       options: ""
   redis:
     host: redis-server
+  tls: 
+    enabled: true
+    issuer: letsencrypt-prod

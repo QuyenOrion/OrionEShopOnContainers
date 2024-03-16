@@ -1,0 +1,16 @@
+{{- $identityUrl := .Values.app.ingress.entries.identity }}
+{{- $webmvcUrl := .Values.app.ingress.entries.webmvc }}
+{{- $protocol := include "protocol" . }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ include "webmvc.fullname" . }}"
+  labels:
+    app.kubernetes.io/name: {{ include "webmvc.name" . }}
+    helm.sh/chart: {{ include "webmvc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  urls__Identity: {{ $protocol }}://{{ $identityUrl }}
+  urls__WebMvc: {{ $protocol }}://{{ $webmvcUrl }}

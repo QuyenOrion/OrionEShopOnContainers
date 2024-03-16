@@ -33,18 +33,18 @@ internal static class Extensions
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
-                options.Authority = configuration.GetValue<string>("IdentityUrl");
-                options.ClientId = "mvc";
-                options.ClientSecret = "secret";
+                options.Authority = configuration.GetValue<string>("Identity:Authority");
+                options.ClientId = configuration.GetValue<string>("Identity:ClientId");
+                options.ClientSecret = configuration.GetValue<string>("Identity:ClientSecret");
                 options.ResponseType = "code";
-                options.RequireHttpsMetadata = false;
+                options.RequireHttpsMetadata = configuration.GetValue<bool>("Identity:RequireHttpsMetadata");
                 options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
-                options.SignedOutRedirectUri = "https://localhost:44321/signout-callback-oidc";
+                options.SignedOutRedirectUri = $"{configuration.GetValue<string>("Identity:SignOutRedirectUrl")}/signout-callback-oidc";
                 options.ConfigurationManager = new Microsoft.IdentityModel.Protocols.ConfigurationManager<OpenIdConnectConfiguration>(
                     $"{options.Authority}/.well-known/openid-configuration",
                     new OpenIdConnectConfigurationRetriever(),
-                    new HttpDocumentRetriever { RequireHttps = false }
+                    new HttpDocumentRetriever { RequireHttps = configuration.GetValue<bool>("Identity:RequireHttpsMetadata") }
                     );
                 options.Validate();
                 options.GetClaimsFromUserInfoEndpoint = true;

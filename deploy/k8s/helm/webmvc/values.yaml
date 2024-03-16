@@ -46,17 +46,11 @@ ingress:
   annotations: 
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  hosts:
-    - host: www.orionproshop.store
-      paths:
-        - path: /?(.*)
-          pathType: ImplementationSpecific
-  tls: 
-    - hosts:
-      - www.orionproshop.store
-      secretName: webmvc-orionproshop-store
+  host:
+    paths:
+      - path: /?(.*)
+        pathType: ImplementationSpecific
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -94,3 +88,15 @@ probe:
     port: 8080
     initialDelaySeconds: 10
     periodSeconds: 15
+
+env:
+  configmap:
+    - name: Identity__Authority
+      key: urls__Identity
+    - name: Identity__SignOutRedirectUrl
+      key: urls__WebMVC
+  value:
+    - name: Identity__RequireHttpsMetadata
+      value: true
+    - name: Identity__ClientID
+      value: webmvc

@@ -1,7 +1,10 @@
+{{- $name := include "webmvc.fullname" . }}
+{{- $cfgname := printf "cfg-%s" $name }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "webmvc.fullname" . }}
+  name: {{ $name }}
   labels:
     {{- include "webmvc.labels" . | nindent 4 }}
 spec:
@@ -40,8 +43,26 @@ spec:
           env:
             - name: ASPNETCORE_URLS
               value: "http://+:8080"
-            - name: IdentityUrl
-              value: "https://identity.orionproshop.store"
+            - name: Identity__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: webmvc-client-secret
+                  key: WebMVCClientSecret
+          {{- if .Values.env.value }}
+          {{- range .Values.env.value }}
+            - name: .name
+              value: .value
+          {{- end }}
+          {{- end }}
+          {{- if .Values.env.configmap }}
+          {{- range .Values.env.configmap }}
+            - name: .name
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $cfgname }}
+                  key: .key
+          {{- end }}
+          {{- end }}
         {{- if .Values.probe }}
         {{- if .Values.probe.liveness }}
           livenessProbe:

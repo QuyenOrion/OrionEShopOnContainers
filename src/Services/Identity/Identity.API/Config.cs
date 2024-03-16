@@ -92,6 +92,30 @@ namespace OrionEShopOnContainer.Services.Identity.API
                         "myclaim",
                         "api1"
                     }
+                },
+                new Client
+                {
+                    ClientId = "webmvc",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientUri = "https://www.orionproshop.store",
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,                    
+
+                    // where to redirect to after login
+                    RedirectUris = { "https://www.orionproshop.store/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { "https://www.orionproshop.store/signout-callback-oidc" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "myclaim",
+                        "api1"
+                    }
                 }
             };
     }

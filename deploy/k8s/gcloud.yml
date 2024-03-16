@@ -3,6 +3,7 @@ gcloud shell on browser and local:
 - gcloud config set compute/zone asia-southeast1-a
 - gcloud container clusters get-credentials multi-cluster
 - kubectl create secret generic pgpassword --from-literal PGPASSWORD=123456
+- kubectl create secret generic webmvc-client-secret --from-literal WebMVCClientSecret=secret
 
 install Helm:
 $ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3

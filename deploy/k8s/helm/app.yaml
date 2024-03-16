@@ -1,0 +1,10 @@
+app:
+  ingress:
+    entries:
+      webmcv: www.orionproshop.store
+      identity: identity.orionproshop.store
+  service:
+    webmvc: webmvc
+    identity: identity
+  dns:
+    domain: orionproshop.store

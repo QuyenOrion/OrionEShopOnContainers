@@ -3,10 +3,10 @@ kind: Certificate
 metadata:
   name: {{ include "webmvc.fullname" . }}-tls
 spec:
-  secretName: webmvc-orionproshop-store
+  secretName: {{ include "secret-name" . }}
   issuerRef:
-    name: orionproshop-store
+    name: {{ .Values.info.tls.issuer }}
     kind: ClusterIssuer
-  commonName: webmvc.orionproshop.store
+  commonName: {{ include "webmvc.fullname" . }}-cert
   dnsNames:
-    - orionproshop.store
+    - {{ .Values.app.dns.domain }}

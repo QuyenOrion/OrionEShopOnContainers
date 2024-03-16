@@ -50,17 +50,17 @@ spec:
                   key: WebMVCClientSecret
           {{- if .Values.env.value }}
           {{- range .Values.env.value }}
-            - name: .name
-              value: .value
+            - name: {{ .name }}
+              value: {{ .value }}
           {{- end }}
           {{- end }}
           {{- if .Values.env.configmap }}
           {{- range .Values.env.configmap }}
-            - name: .name
+            - name: {{ .name }}
               valueFrom:
                 configMapKeyRef:
                   name: {{ $cfgname }}
-                  key: .key
+                  key: {{ .key }}
           {{- end }}
           {{- end }}
         {{- if .Values.probe }}

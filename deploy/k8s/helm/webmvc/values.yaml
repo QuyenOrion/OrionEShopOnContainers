@@ -98,5 +98,5 @@ env:
   value:
     - name: Identity__RequireHttpsMetadata
       value: true
-    - name: Identity__ClientID
-      value: webmvc
+    - name: Identity__ClientId
+      value: "webmvc"

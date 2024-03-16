@@ -51,7 +51,7 @@ spec:
           {{- if .Values.env.value }}
           {{- range .Values.env.value }}
             - name: {{ .name }}
-              value: {{ .value }}
+              value: {{ .value | quote }}
           {{- end }}
           {{- end }}
           {{- if .Values.env.configmap }}

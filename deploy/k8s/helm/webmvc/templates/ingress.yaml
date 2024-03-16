@@ -32,11 +32,11 @@ spec:
   {{- if .Values.info.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.app.ingress.entries.webmcv }}
+        - {{ .Values.app.ingress.entries.webmvc }}
       secretName: {{ include "secret-name" . }}
   {{- end }}
   rules:
-    - host: {{ .Values.app.ingress.entries.webmcv }}
+    - host: {{ .Values.app.ingress.entries.webmvc }}
       http:
         paths:
           {{- range .Values.ingress.host.paths }}

@@ -1,6 +1,6 @@
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
-  {{- $host := .Values.app.ingress.entries.webmcv }}
+  {{- $host := .Values.app.ingress.entries.webmvc }}
   {{- range .Values.ingress.host.paths }}
   http{{ if $.Values.info.tls.enabled }}s{{ end }}://{{ $host }}{{ .path }}
   {{- end }}

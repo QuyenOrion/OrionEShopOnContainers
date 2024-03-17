@@ -7,6 +7,6 @@ spec:
   issuerRef:
     name: {{ .Values.info.tls.issuer }}
     kind: ClusterIssuer
-  commonName: {{ include "webmvc.fullname" . }}-cert
+  commonName: {{ .Values.app.ingress.entries.webmvc }}
   dnsNames:
-    - {{ .Values.app.dns.domain }}
+    - {{ .Values.app.ingress.entries.webmvc }}

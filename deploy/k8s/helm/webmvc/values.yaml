@@ -94,7 +94,7 @@ env:
     - name: Identity__Authority
       key: urls__Identity
     - name: Identity__SignOutRedirectUrl
-      key: urls__WebMVC
+      key: urls__WebMvc
   value:
     - name: Identity__RequireHttpsMetadata
       value: true

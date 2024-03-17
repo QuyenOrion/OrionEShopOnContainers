@@ -37,22 +37,22 @@ namespace OrionEShopOnContainer.Services.Identity.API
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                new Client
-                {
-                    ClientId = "client",
+                //new Client
+                //{
+                //    ClientId = "client",
 
-                    // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                //    // no interactive user, use the clientid/secret for authentication
+                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
                     
-                    // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
+                //    // secret for authentication
+                //    ClientSecrets =
+                //    {
+                //        new Secret("secret".Sha256())
+                //    },
 
-                    // scopes that client has access to
-                    AllowedScopes = { "api1" }
-                },
+                //    // scopes that client has access to
+                //    AllowedScopes = { "api1" }
+                //},
                 new Client
                 {
                     ClientId = "web-shopping-http-aggregator",
@@ -103,7 +103,7 @@ namespace OrionEShopOnContainer.Services.Identity.API
                     AllowOfflineAccess = true,                    
 
                     // where to redirect to after login
-                    RedirectUris = { "https://www.orionproshop.store/signin-oidc" },
+                    RedirectUris = { "https://www.orionproshop.store/signin-oidc", "http://www.orionproshop.store/signin-oidc" },
 
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { "https://www.orionproshop.store/signout-callback-oidc" },

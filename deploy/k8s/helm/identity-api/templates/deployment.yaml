@@ -43,7 +43,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: {{ $secretVolume }}
-              monthPath: /app/secrets
+              mountPath: /app/secrets
               readOnly: true
           ports:
             - name: http

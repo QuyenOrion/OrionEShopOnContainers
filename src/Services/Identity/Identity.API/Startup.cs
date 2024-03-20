@@ -19,9 +19,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -92,6 +94,14 @@ namespace OrionEShopOnContainer.Services.Identity.API
             // not recommended for production - you need to store your key material somewhere secure
             if (Environment.IsDevelopment())
                 builder.AddDeveloperSigningCredential();
+            else
+            {
+                var filename = Configuration.GetValue<string>("SigningCredentialPath");
+                var json = File.ReadAllText(filename);
+                var jwk = new JsonWebKey(json);
+
+                builder.AddSigningCredential(jwk, jwk.Alg);
+            }
         }
 
         public void Configure(IApplicationBuilder app)

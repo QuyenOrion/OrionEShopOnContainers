@@ -96,3 +96,6 @@ env:
       key: identity__ConnectionStrings__PostgresDb
     - name: ConnectionStrings__PostgresUser
       key: identity__ConnectionStrings__PostgresUser
+  value:
+    - name: SigningCredentialPath
+      value: /app/secrets/tempkey.jwk

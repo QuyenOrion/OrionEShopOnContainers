@@ -1,5 +1,6 @@
 {{- $name := include "identity-api.fullname" . -}}
 {{- $cfgname := printf "%s-%s" "cfg" $name -}}
+{{- $secretVolume := "secrets-volumne" -}}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -30,12 +31,20 @@ spec:
       serviceAccountName: {{ include "identity-api.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: {{ $secretVolume }}
+          secret:
+            secretName: identity-signing-credential
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: {{ $secretVolume }}
+              monthPath: /app/secrets
+              readOnly: true
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -53,6 +62,12 @@ spec:
                 configMapKeyRef:
                   name: {{ $cfgname }}
                   key: {{ .key }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.env.value }}
+          {{- range .Values.env.value }}
+            - name: {{ .name }}
+              value: {{ .value }}
           {{- end }}
           {{- end }}
           livenessProbe:

@@ -46,11 +46,6 @@ internal static class Extensions
                     new OpenIdConnectConfigurationRetriever(),
                     new HttpDocumentRetriever { RequireHttps = configuration.GetValue<bool>("Identity:RequireHttpsMetadata") }
                     );
-                options.Events.OnRedirectToIdentityProvider = async n =>
-                {
-                    n.ProtocolMessage.RedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}/signin-oidc";
-                    await Task.FromResult(0);
-                };
                 options.Validate(); 
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.Scope.Add("email");

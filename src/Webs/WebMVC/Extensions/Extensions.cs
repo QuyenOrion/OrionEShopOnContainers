@@ -48,7 +48,7 @@ internal static class Extensions
                     );
                 options.Events.OnRedirectToIdentityProvider = async n =>
                 {
-                    n.ProtocolMessage.RedirectUri = configuration.GetValue<string>("Identity:RedirectUri");
+                    n.ProtocolMessage.RedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}/signin-oidc";
                     await Task.FromResult(0);
                 };
                 options.Validate(); 

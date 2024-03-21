@@ -40,13 +40,18 @@ internal static class Extensions
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("Identity:RequireHttpsMetadata");
                 options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
-                options.SignedOutRedirectUri = $"{configuration.GetValue<string>("Identity:SignOutRedirectUrl")}/signout-callback-oidc";
+                options.SignedOutRedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}/signout-callback-oidc";
                 options.ConfigurationManager = new Microsoft.IdentityModel.Protocols.ConfigurationManager<OpenIdConnectConfiguration>(
                     $"{options.Authority}/.well-known/openid-configuration",
                     new OpenIdConnectConfigurationRetriever(),
                     new HttpDocumentRetriever { RequireHttps = configuration.GetValue<bool>("Identity:RequireHttpsMetadata") }
                     );
-                options.Validate();
+                options.Events.OnRedirectToIdentityProvider = async n =>
+                {
+                    n.ProtocolMessage.RedirectUri = configuration.GetValue<string>("Identity:RedirectUri");
+                    await Task.FromResult(0);
+                };
+                options.Validate(); 
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.Scope.Add("email");
                 options.Scope.Add("myclaim");

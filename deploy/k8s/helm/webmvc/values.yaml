@@ -93,7 +93,7 @@ env:
   configmap:
     - name: Identity__Authority
       key: urls__Identity
-    - name: Identity__SignOutRedirectUrl
+    - name: Identity__RedirectUri
       key: urls__WebMvc
   value:
     - name: Identity__RequireHttpsMetadata

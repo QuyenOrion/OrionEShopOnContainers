@@ -36,7 +36,6 @@ internal static class Extensions
                 options.Authority = configuration.GetValue<string>("Identity:Authority");
                 options.ClientId = configuration.GetValue<string>("Identity:ClientId");
                 options.ClientSecret = configuration.GetValue<string>("Identity:ClientSecret");
-                options.ResponseType = "code";
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("Identity:RequireHttpsMetadata");
                 options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
@@ -48,7 +47,7 @@ internal static class Extensions
                     );
                 options.Events.OnRedirectToIdentityProvider = async n =>
                 {
-                    n.ProtocolMessage.RedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}";
+                    n.ProtocolMessage.RedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}/signin-oidc";
                     await Task.FromResult(0);
                 };
                 options.Validate(); 

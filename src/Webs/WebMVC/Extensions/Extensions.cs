@@ -38,7 +38,7 @@ internal static class Extensions
                 options.ClientSecret = configuration.GetValue<string>("Identity:ClientSecret");
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("Identity:RequireHttpsMetadata");
                 options.CallbackPath = "/signin-oidc";
-                options.ResponseType = "code id_token";
+                options.ResponseType = OpenIdConnectResponseType.Code;
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
                 options.SignedOutRedirectUri = $"{configuration.GetValue<string>("Identity:RedirectUri")}/signout-callback-oidc";
                 options.ConfigurationManager = new Microsoft.IdentityModel.Protocols.ConfigurationManager<OpenIdConnectConfiguration>(
